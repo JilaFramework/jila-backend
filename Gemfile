@@ -13,6 +13,8 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'jbuilder', '~> 2.0'
 
+gem 'rspec-rails'
+
 # Spring speeds   up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
