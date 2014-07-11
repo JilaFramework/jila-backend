@@ -20,6 +20,7 @@ ActiveAdmin.register Entry do
     column :word_type
     column :translation
     column :description
+    column :published?
     actions
   end
 
