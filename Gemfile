@@ -11,7 +11,8 @@ gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 
-gem 'jbuilder', '~> 2.0'
+gem 'paperclip'
+gem 'aws-sdk'
 
 gem 'rspec-rails'
 

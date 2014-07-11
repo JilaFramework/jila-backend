@@ -2,15 +2,16 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :description, :published?
+  permit_params :entry_word, :word_type, :translation, :description, :published?, :image
 
-  form do |f|
+  form(html: { multipart: true }) do |f|
     f.inputs do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :translation
       f.input :description
       f.input :published?
+      f.input :image, as: :file
     end
     f.actions
   end
@@ -23,6 +24,9 @@ ActiveAdmin.register Entry do
     column :translation
     column :description
     column :published?
+    column :image do |entry|
+      thumbnail_image entry
+    end
     actions
   end
 end
