@@ -14,13 +14,14 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'paperclip'
 gem 'aws-sdk'
 
+gem 'unicorn'
+
 gem 'rspec-rails'
 
-# Spring speeds   up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+group :development do
+  gem 'spring'	
+end
 
 group :development, :test do
   gem 'sqlite3'
 end
-
-gem 'unicorn'
