@@ -19,3 +19,8 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
+
+# This will be overriden by Heroku but is useful here for testing 
+production:	
+  <<: *default
+  database: db/production.sqlite3
