@@ -14,7 +14,6 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'paperclip'
 gem 'aws-sdk'
 
-gem 'pg'
 gem 'unicorn'
 
 gem 'rspec-rails'
@@ -22,3 +21,11 @@ gem 'rspec-rails'
 group :development do
   gem 'spring'	
 end
+
+group :development, :test do
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end		
