@@ -1,6 +1,9 @@
 class Entry < ActiveRecord::Base
 	validates :entry_word, :word_type, :translation, presence: true	
 
+	has_and_belongs_to_many :categories
+	accepts_nested_attributes_for :categories, allow_destroy: false
+
 	WORD_TYPES = [
 		"noun",
 		"verb"
