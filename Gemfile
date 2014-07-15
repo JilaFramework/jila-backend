@@ -16,6 +16,8 @@ gem 'aws-sdk'
 
 gem 'unicorn'
 
+gem 'newrelic_rpm'
+
 gem 'rspec-rails'
 
 group :development do
