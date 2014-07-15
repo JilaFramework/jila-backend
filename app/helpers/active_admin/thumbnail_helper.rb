@@ -1,5 +1,5 @@
 module ActiveAdmin::ThumbnailHelper
-  def thumbnail_image(model, width=250)
+  def thumbnail_image(model, width=150)
     if model.image?
       image_tag(model.image(:thumbnail), width: width)
     else
