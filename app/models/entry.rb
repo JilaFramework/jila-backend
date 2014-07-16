@@ -16,4 +16,8 @@ class Entry < ActiveRecord::Base
 	  xlarge: '1280x1280>'
 	}
 	validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
+	def self.published?
+		where(published?: true)
+	end
 end

@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   root :to => redirect("/admin", status: 302)
+
+  namespace :api, defaults: { format: :json } do
+    get 'sync/entries' => 'sync#entries'  
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
