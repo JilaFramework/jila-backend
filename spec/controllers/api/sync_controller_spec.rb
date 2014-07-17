@@ -27,26 +27,21 @@ RSpec.describe Api::SyncController, :type => :controller do
 
         get :entries
 
-        expect(response.body).to eq({
-          entries: [
-            {
-              id: 3,
-              entry_word: 'Mimi',
-              word_type: 'noun',
-              translation: 'Grandma',
-              description: 'Mum\'s mum',
-              audio: 's3.m4a',
-              images: {
-                thumbnail: 'thumb.png',
-                normal: 'normal.png'
-              },
-              categories: [
-                37,
-                24
-              ]
-            }
-          ]
-        }.to_json)
+        parsed_response = JSON.parse response.body
+
+        expect(parsed_response['entries'].length).to eq(1)
+
+        first_entry = parsed_response['entries'].first
+        expect(first_entry['id']).to eq(3)
+        expect(first_entry['entry_word']).to eq('Mimi')
+        expect(first_entry['word_type']).to eq('noun')
+        expect(first_entry['translation']).to eq('Grandma')
+        expect(first_entry['description']).to eq('Mum\'s mum')
+        expect(first_entry['audio']).to eq('s3.m4a')
+        expect(first_entry['images']['thumbnail']).to eq('thumb.png')
+        expect(first_entry['images']['normal']).to eq('normal.png')
+        expect(first_entry['categories']).to eq([37,24])
+        
       end
     end
 
