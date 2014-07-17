@@ -20,4 +20,8 @@ class Entry < ActiveRecord::Base
 	def self.published?
 		where(published?: true)
 	end
+
+  def self.since updated_since
+    where('updated_at >= ?', updated_since)
+  end
 end
