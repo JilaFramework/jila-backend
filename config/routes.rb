@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     get 'sync/entries' => 'sync#entries'  
+    get 'sync/all' => 'sync#all'  
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

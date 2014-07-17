@@ -1,21 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Api::SyncController, :type => :controller do
-	describe 'GET #entries' do
-    let(:category1) { Category.new id: 37 }
-    let(:category2) { Category.new id: 24 }
-    let(:entry) { Entry.new id: 37, entry_word: 'Mimi', 
-                                    word_type: 'noun',
-                                    translation: 'Grandma', 
-                                    description: 'Mum\'s mum',
-                                    categories: [category1, category2] }
+	let(:category1) { Category.new id: 37 }
+  let(:category2) { Category.new id: 24 }
+  let(:entry) { Entry.new id: 37, entry_word: 'Mimi', 
+                                  word_type: 'noun',
+                                  translation: 'Grandma', 
+                                  description: 'Mum\'s mum',
+                                  categories: [category1, category2] }
 
-    before do
-      allow(entry).to receive_message_chain(:audio, :url).and_return('s3.m4a')
-      allow(entry).to receive(:image).with(:thumbnail).and_return('thumb.png')
-      allow(entry).to receive(:image).with(:normal).and_return('normal.png')
-    end
+  before do
+    allow(entry).to receive_message_chain(:audio, :exists?).and_return(true)
+    allow(entry).to receive_message_chain(:audio, :url).and_return('s3.m4a')
+    allow(entry).to receive(:image).with(:thumbnail).and_return('thumb.png')
+    allow(entry).to receive(:image).with(:normal).and_return('normal.png')
+  end
 
+  describe 'GET #entries' do
     before { expect(Entry).to receive(:published?).and_return([entry]) }
 
 		context 'with no date provided' do
@@ -56,4 +57,15 @@ RSpec.describe Api::SyncController, :type => :controller do
       end
     end
 	end	
+
+  describe 'GET #all' do
+    it 'should aggregate all the syncable fields' do
+      get :all
+
+      parsed_response = JSON.parse response.body
+
+      expect(parsed_response).to have_key('categories')
+      expect(parsed_response).to have_key('entries')
+    end 
+  end
 end

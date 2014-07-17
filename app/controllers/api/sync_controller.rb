@@ -1,15 +1,27 @@
 class Api::SyncController < ApplicationController
 
 	def entries
+    last_sync = DateTime.parse(params[:since]) if params[:since]
+
+	  render json: entries_since(last_sync), root: 'entries', each_serializer: EntrySerializer
+	end
+
+  def all
+    last_sync = DateTime.parse(params[:since]) if params[:since]
+
+    render json: {
+      categories: [],
+      entries: entries_since(last_sync)
+    }, root: false, serializer: SyncSerializer
+  end
+
+  private
+
+  def entries_since last_sync
     entries = Entry
 
-    if params[:since]
-      since = DateTime.parse(params[:since])
-      entries = entries.since since
-    end
+    entries = entries.since last_sync if last_sync
 
-    entries = entries.published?
-
-	  render json: entries, root: 'entries', each_serializer: EntrySerializer
-	end
+    entries.published?
+  end
 end
