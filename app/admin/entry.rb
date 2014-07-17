@@ -31,7 +31,18 @@ ActiveAdmin.register Entry do
     f.actions
   end
 
+  batch_action :publish do |selection|
+    Entry.find(selection).each { |e| e.update_attribute(:published?, true) }
+    redirect_to collection_path, :notice => "Entries published"
+  end
+
+  batch_action :un_publish do |selection|
+    Entry.find(selection).each { |e| e.update_attribute(:published?, false) }
+    redirect_to collection_path, :notice => "Entries un-published"
+  end
+
   index do
+    selectable_column
     column :entry_word do |entry|
       link_to entry.entry_word, edit_admin_entry_path(entry)
     end
