@@ -2,9 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Api::SyncController, :type => :controller do
 	describe 'GET #entries' do
-    let(:category1) { double(Category, name: 'Family') }
-    let(:category2) { double(Category, name: 'Body Parts') }
-    let(:entry) { double(Entry, id: 37, entry_word: 'Mimi', translation: 'Grandma', categories: [category1, category2]) }
+    let(:category1) { Category.new id: 37 }
+    let(:category2) { Category.new id: 24 }
+    let(:entry) { Entry.new id: 37, entry_word: 'Mimi', 
+                                    word_type: 'noun',
+                                    translation: 'Grandma', 
+                                    description: 'Mum\'s mum',
+                                    categories: [category1, category2] }
+
+    before do
+      allow(entry).to receive_message_chain(:audio, :url).and_return('s3.m4a')
+      allow(entry).to receive(:image).with(:thumbnail).and_return('thumb.png')
+      allow(entry).to receive(:image).with(:normal).and_return('normal.png')
+    end
 
     before { expect(Entry).to receive(:published?).and_return([entry]) }
 
@@ -19,10 +29,17 @@ RSpec.describe Api::SyncController, :type => :controller do
             {
               id: 37,
               entry_word: 'Mimi',
+              word_type: 'noun',
               translation: 'Grandma',
+              description: 'Mum\'s mum',
+              audio: 's3.m4a',
+              images: {
+                thumbnail: 'thumb.png',
+                normal: 'normal.png'
+              },
               categories: [
-                'Family',
-                'Body Parts'
+                37,
+                24
               ]
             }
           ]

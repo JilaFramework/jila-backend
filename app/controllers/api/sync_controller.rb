@@ -10,15 +10,6 @@ class Api::SyncController < ApplicationController
 
     entries = entries.published?
 
-	  render json: {
-      entries: entries.map do |e|
-                {
-                  id: e.id,
-                  entry_word: e.entry_word,
-                  translation: e.translation,
-                  categories: e.categories.map(&:name)
-                }
-               end
-    }
+	  render json: entries, root: 'entries', each_serializer: EntrySerializer
 	end
 end

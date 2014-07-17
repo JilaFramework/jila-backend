@@ -8,6 +8,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 4.2.1'
 
+gem "active_model_serializers"
+
 gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 
