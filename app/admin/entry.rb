@@ -2,7 +2,8 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :description, :published?, :image, category_ids: []
+  permit_params :entry_word, :word_type, :translation, :description, 
+                :published?, :image, :audio, category_ids: []
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
@@ -12,6 +13,15 @@ ActiveAdmin.register Entry do
       f.input :description
       f.input :published?
       f.input :image, as: :file
+      f.input :audio, as: :file
+    end
+
+    f.inputs 'Existing Image' do
+      thumbnail_image f.object
+    end
+
+    f.inputs 'Existing Audio' do
+      audio_link f.object
     end
 
     f.inputs 'Select categories' do
@@ -31,6 +41,9 @@ ActiveAdmin.register Entry do
     column :published?
     column :image do |entry|
       thumbnail_image entry
+    end
+    column :audio do |entry|
+      audio_link entry
     end
     column :categories do |entry|
       entry.categories.map do |c|

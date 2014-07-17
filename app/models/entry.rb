@@ -17,6 +17,9 @@ class Entry < ActiveRecord::Base
 	}
 	validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
+  has_attached_file :audio
+  validates_attachment_content_type :audio, :content_type => ["audio/mp3", "audio/x-m4a"]
+
 	def self.published?
 		where(published?: true)
 	end
