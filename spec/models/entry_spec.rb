@@ -14,7 +14,7 @@ RSpec.describe Entry, :type => :model do
   end
 
   describe :since do
-    it 'should filter entries before the updated date' do
+    it 'should filter entries modified before provided date' do
       entries = Entry.since Date.today.to_s
 
       expect(entries).to_not include(unpublished_yesterday)

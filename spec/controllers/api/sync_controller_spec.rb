@@ -46,11 +46,11 @@ RSpec.describe Api::SyncController, :type => :controller do
     end
 
     context 'with a date provided' do
-      it 'should return all published entries since the provided date' do
+      it 'should return all published entries modified after the provided date' do
         expect(Entry).to receive(:since).with(DateTime.parse('2010-06-01'))
                                         .and_return(Entry)
 
-        get :entries, since: '2010-06-01'
+        get :entries, last_sync: '2010-06-01'
       end
     end
 	end
@@ -71,6 +71,14 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_category['name']).to eq('Family')
         expect(first_category['images']['thumbnail']).to eq('cat_thumb1.png')
         expect(first_category['images']['normal']).to eq('cat_normal1.png')
+      end
+    end
+
+    context 'with a date provided' do
+      before { expect(Category).to receive(:since) }
+
+      it 'should return all categories modified after the provided date' do
+        get :categories, last_sync: '2010-06-01'
       end
     end
   end

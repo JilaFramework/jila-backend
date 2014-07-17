@@ -1,18 +1,18 @@
 class Api::SyncController < ApplicationController
   def categories
-    last_sync = DateTime.parse(params[:since]) if params[:since]
+    last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
     render json: categories_since(last_sync), root: 'categories', each_serializer: CategorySerializer
   end
 
 	def entries
-    last_sync = DateTime.parse(params[:since]) if params[:since]
+    last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
 	  render json: entries_since(last_sync), root: 'entries', each_serializer: EntrySerializer
 	end
 
   def all
-    last_sync = DateTime.parse(params[:since]) if params[:since]
+    last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
     render json: {
       categories: categories_since(last_sync),
