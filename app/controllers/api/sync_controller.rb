@@ -1,7 +1,14 @@
 class Api::SyncController < ApplicationController
 
 	def entries
-    entries = Entry.published?
+    entries = Entry
+
+    if params[:since]
+      since = DateTime.parse(params[:since])
+      entries = entries.since since
+    end
+
+    entries = entries.published?
 
 	  render json: {
       entries: entries.map do |e|
