@@ -15,7 +15,7 @@ class Api::SyncController < ApplicationController
     last_sync = DateTime.parse(params[:since]) if params[:since]
 
     render json: {
-      categories: [],
+      categories: categories_since(last_sync),
       entries: entries_since(last_sync)
     }, root: false, serializer: SyncSerializer
   end
