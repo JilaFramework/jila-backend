@@ -8,4 +8,8 @@ class Category < ActiveRecord::Base
 	  xlarge: '1280x1280>'
 	}
 	validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
+  def self.since updated_since
+    where('updated_at >= ?', updated_since)
+  end
 end
