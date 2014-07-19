@@ -3,8 +3,8 @@ class CategorySerializer < ActiveModel::Serializer
 
   def images 
     {
-      thumbnail: object.image(:thumbnail),
-      normal: object.image(:normal)
+      thumbnail: object.image? ? object.image(:thumbnail) : nil,
+      normal: object.image? ? object.image(:normal) : nil
     }
   end
 end
