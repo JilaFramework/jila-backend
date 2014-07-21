@@ -7,8 +7,13 @@ class Entry < ActiveRecord::Base
 	WORD_TYPES = [
 		"noun",
 		"verb",
-    "phrase",
-    "exclamation"
+    "pronoun",
+    "adjective",
+    "adverb",
+    "preposition",
+    "conjunction",
+    "interjection",
+    "phrase"
 	]
 
 	has_attached_file :image, styles: {
