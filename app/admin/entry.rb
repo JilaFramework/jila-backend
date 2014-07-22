@@ -63,4 +63,9 @@ ActiveAdmin.register Entry do
     end
     actions
   end
+
+  filter :categories
+  filter :entry_word
+  filter :translation
+  filter :published?, as: :select, collection: [true, false]
 end
