@@ -25,7 +25,7 @@ ActiveAdmin.register Entry do
     end
 
     f.inputs 'Select categories' do
-      f.input :categories, as: :check_boxes, collection: Category.all
+      f.input :categories, as: :check_boxes, collection: Category.all.sort_by(&:name)
     end
 
     f.actions
