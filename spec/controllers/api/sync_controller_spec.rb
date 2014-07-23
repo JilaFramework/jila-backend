@@ -12,8 +12,10 @@ RSpec.describe Api::SyncController, :type => :controller do
   before do
     allow(entry).to receive_message_chain(:audio, :exists?).and_return(true)
     allow(entry).to receive_message_chain(:audio, :url).and_return('s3.m4a')
+    allow(entry).to receive(:image?).and_return(true)
     allow(entry).to receive(:image).with(:thumbnail).and_return('thumb.png')
     allow(entry).to receive(:image).with(:normal).and_return('normal.png')
+    allow(category1).to receive(:image?).and_return(true)
     allow(category1).to receive(:image).with(:thumbnail).and_return('cat_thumb1.png')
     allow(category1).to receive(:image).with(:normal).and_return('cat_normal1.png')
   end
