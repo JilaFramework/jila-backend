@@ -1,6 +1,8 @@
 class Category < ActiveRecord::Base
 	validates :name, presence: true
 
+  has_and_belongs_to_many :entries
+
 	has_attached_file :image, styles: {
 	  thumbnail: '250x250>',
 	  normal: '640x640>',
@@ -11,5 +13,9 @@ class Category < ActiveRecord::Base
 
   def self.since updated_since
     where('updated_at >= ?', updated_since)
+  end
+
+  def self.with_published_entries
+    joins(:entries).where(entries: {published?: true}).uniq
   end
 end

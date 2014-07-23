@@ -57,9 +57,9 @@ RSpec.describe Api::SyncController, :type => :controller do
 
   describe 'GET #categories' do
     context 'with no date provided' do
-      before { expect(Category).to receive(:all).and_return([category1, category2]) }
+      before { expect(Category).to receive(:with_published_entries).and_return([category1, category2]) }
 
-      it 'should return all categories' do
+      it 'should return all categories with published entries' do
         get :categories
 
         parsed_response = JSON.parse response.body
@@ -75,6 +75,7 @@ RSpec.describe Api::SyncController, :type => :controller do
     end
 
     context 'with a date provided' do
+      before { expect(Category).to receive(:with_published_entries).and_return(Category) }
       before { expect(Category).to receive(:since) }
 
       it 'should return all categories modified after the provided date' do

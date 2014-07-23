@@ -23,7 +23,8 @@ class Api::SyncController < ApplicationController
   private
 
   def categories_since last_sync
-    last_sync ? Category.since(last_sync) : Category.all
+    categories = Category.with_published_entries
+    last_sync ? categories.since(last_sync) : categories
   end
 
   def entries_since last_sync
