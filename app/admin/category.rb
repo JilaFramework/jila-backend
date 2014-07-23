@@ -7,7 +7,7 @@ ActiveAdmin.register Category do
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
       f.input :name
-      f.input :image, as: :file
+      f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF'
     end
 
     f.inputs 'Existing Image' do

@@ -12,8 +12,8 @@ ActiveAdmin.register Entry do
       f.input :translation
       f.input :description
       f.input :published?
-      f.input :image, as: :file
-      f.input :audio, as: :file
+      f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF'
+      f.input :audio, as: :file, label: 'Audio - Must be MP3 or M4A (AAC)'
     end
 
     f.inputs 'Existing Image' do
