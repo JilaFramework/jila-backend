@@ -10,7 +10,7 @@ ActiveAdmin.register Entry do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :translation
-      f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - Put each on a new line', input_html: {rows: 3}
+      f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :description
       f.input :published?
       f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF', hint: thumbnail_image(f.object)
