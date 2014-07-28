@@ -2,7 +2,7 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :description, 
+  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :description, 
                 :published?, :image, :audio, category_ids: []
 
   form(html: { multipart: true }) do |f|
@@ -10,6 +10,7 @@ ActiveAdmin.register Entry do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :translation
+      f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - Put each on a new line', input_html: {rows: 3}
       f.input :description
       f.input :published?
       f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF'

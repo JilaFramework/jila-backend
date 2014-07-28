@@ -36,4 +36,13 @@ class Entry < ActiveRecord::Base
   def self.since updated_since
     where('updated_at >= ?', updated_since)
   end
+
+  def alternate_translations_raw
+    self.alternate_translations.join("\n") unless self.alternate_translations.nil?
+  end
+
+  def alternate_translations_raw= values
+    self.alternate_translations = []
+    self.alternate_translations = values.split("\n")
+  end
 end
