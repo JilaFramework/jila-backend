@@ -13,16 +13,8 @@ ActiveAdmin.register Entry do
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - Put each on a new line', input_html: {rows: 3}
       f.input :description
       f.input :published?
-      f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF'
-      f.input :audio, as: :file, label: 'Audio - Must be MP3 or M4A (AAC)'
-    end
-
-    f.inputs 'Existing Image' do
-      thumbnail_image f.object
-    end
-
-    f.inputs 'Existing Audio' do
-      audio_link f.object
+      f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF', hint: thumbnail_image(f.object)
+      f.input :audio, as: :file, label: 'Audio - Must be MP3 or M4A (AAC)', hint: audio_link(f.object)
     end
 
     f.inputs 'Select categories' do
