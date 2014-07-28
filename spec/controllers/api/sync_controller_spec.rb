@@ -6,6 +6,7 @@ RSpec.describe Api::SyncController, :type => :controller do
   let(:entry) { Entry.new id: 3, entry_word: 'Mimi', 
                                  word_type: 'noun',
                                  translation: 'Grandma', 
+                                 alternate_translations: ['Granny'],
                                  description: 'Mum\'s mum',
                                  categories: [category1, category2] }
 
@@ -38,6 +39,7 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_entry['entry_word']).to eq('Mimi')
         expect(first_entry['word_type']).to eq('noun')
         expect(first_entry['translation']).to eq('Grandma')
+        expect(first_entry['alternate_translations']).to eq(['Granny'])
         expect(first_entry['description']).to eq('Mum\'s mum')
         expect(first_entry['audio']).to eq('s3.m4a')
         expect(first_entry['images']['thumbnail']).to eq('thumb.png')

@@ -1,6 +1,8 @@
 class Entry < ActiveRecord::Base
 	validates :entry_word, :word_type, :translation, presence: true	
 
+  store :extras, accessors: [ :alternate_translations ]
+
 	has_and_belongs_to_many :categories
 	accepts_nested_attributes_for :categories, allow_destroy: false
 
