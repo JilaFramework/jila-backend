@@ -6,6 +6,7 @@ class MakeCommonCategory < ActiveRecord::Migration
 
       first_category.id = last_category.id + 1
       first_category.save!
+    end
 
     Category.create id: 1, name: 'Greetings/Common'
   end
