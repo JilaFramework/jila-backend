@@ -9,7 +9,7 @@ class MakeCommonCategory < ActiveRecord::Migration
       first_category.save
     end
 
-    new_category = Category.create id: 1, name: 'Greetings / Common'
+    new_category = Category.create id: 1, name: 'Common Phrases'
   end
 
   def down
