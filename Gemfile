@@ -20,6 +20,9 @@ gem 'aws-sdk'
 
 gem 'unicorn'
 
+gem 'memcachier'
+gem 'dalli'
+
 gem 'newrelic_rpm'
 
 gem 'rspec-rails'
