@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root :to => redirect("/admin", status: 302)
 
-  namespace :api, defaults: { format: :json } do
+  namespace :api, defaults: { format: 'json' } do
     get 'sync/categories' => 'sync#categories'  
     get 'sync/entries' => 'sync#entries'  
     get 'sync/all' => 'sync#all'  
