@@ -1,4 +1,6 @@
 class Api::SyncController < ApplicationController
+  caches_action :all
+
   def categories
     last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 

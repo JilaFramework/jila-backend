@@ -1,4 +1,7 @@
 ActiveAdmin.register Category do
+  controller do
+    cache_sweeper :api_sweeper
+  end
 
   actions :all, except: [:show]
 

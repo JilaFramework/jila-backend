@@ -20,6 +20,8 @@ gem 'aws-sdk'
 
 gem 'unicorn'
 
+gem 'actionpack-action_caching'
+gem 'rails-observers'
 gem 'memcachier'
 gem 'dalli'
 

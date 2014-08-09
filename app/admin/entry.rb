@@ -1,5 +1,9 @@
 ActiveAdmin.register Entry do
 
+  controller do
+    cache_sweeper :api_sweeper
+  end
+
   actions :all, except: [:show]
 
   permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :description, 
