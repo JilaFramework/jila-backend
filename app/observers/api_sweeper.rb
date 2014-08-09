@@ -2,6 +2,11 @@ class ApiSweeper < ActionController::Caching::Sweeper
   observe Category, Entry
 
   def after_save record
-    expire_action(:controller => "api/sync", :action => "all")
+    fragment_path = ActionController::Caching::Actions::ActionCachePath.new(self, {
+        controller: '/api/sync',
+        action: 'all',
+        format: 'json'
+    }, false).path
+    expire_fragment("#{fragment_path}.json")
   end
 end 
