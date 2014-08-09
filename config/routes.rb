@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'sync/categories' => 'sync#categories'  
     get 'sync/entries' => 'sync#entries'  
     get 'sync/all' => 'sync#all'  
+    get 'heartbeat' => 'heartbeat#heartbeat'
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
