@@ -1,6 +1,18 @@
 ActiveAdmin.register Category do
   controller do
     cache_sweeper :api_sweeper
+
+    def create
+      create! do |format|
+        format.html { redirect_to edit_admin_categorys_path(Category.last) }
+      end
+    end
+
+    def update
+      update! do |format|
+        format.html { redirect_to edit_admin_category_path }
+      end
+    end
   end
 
   actions :all, except: [:show]
