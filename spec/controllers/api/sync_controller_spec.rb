@@ -92,6 +92,27 @@ RSpec.describe Api::SyncController, :type => :controller do
     end
   end
 
+  describe 'GET #image_credits' do
+    let(:credit1) { ImageCredit.new attribution_text: 'Saltwater Croc - PhotoGuy89 - CC SA-2.5', link: 'http://linktoapicture.com/1.png'}
+    let(:credit2) { ImageCredit.new attribution_text: 'Red Flying Fox - PhotoGal90 - CC SA-3.0', link: 'http://linktoapicture.com/2.png'}
+    let(:credits) { [credit1, credit2] }
+
+    before { expect(ImageCredit).to receive(:all).and_return(credits) }
+
+    it 'should provide a list of all image credits' do
+      get :image_credits
+
+      parsed_response = JSON.parse response.body
+
+      expect(parsed_response['image_credits'].length).to eq(2)
+
+      first_credit = parsed_response['image_credits'].first
+      expect(first_credit['id']).to eq(nil)
+      expect(first_credit['attribution_text']).to eq('Saltwater Croc - PhotoGuy89 - CC SA-2.5')
+      expect(first_credit['link']).to eq('http://linktoapicture.com/1.png')
+    end
+  end
+
   describe 'GET #all' do
     it 'should aggregate all the syncable fields' do
       get :all
@@ -100,6 +121,7 @@ RSpec.describe Api::SyncController, :type => :controller do
 
       expect(parsed_response).to have_key('categories')
       expect(parsed_response).to have_key('entries')
+      expect(parsed_response).to have_key('image_credits')
     end 
   end
 end

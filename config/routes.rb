@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     get 'sync/categories' => 'sync#categories'  
     get 'sync/entries' => 'sync#entries'  
+    get 'sync/image_credits' => 'sync#image_credits'
     get 'sync/all' => 'sync#all'  
     get 'heartbeat' => 'heartbeat#heartbeat'
   end

@@ -13,12 +13,17 @@ class Api::SyncController < ApplicationController
 	  render json: entries_since(last_sync), root: 'entries', each_serializer: EntrySerializer
 	end
 
+  def image_credits
+    render json: ImageCredit.all, root: 'image_credits', each_serializer: ImageCreditSerializer
+  end
+
   def all
     last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
     render json: {
       categories: categories_since(last_sync),
-      entries: entries_since(last_sync)
+      entries: entries_since(last_sync),
+      image_credits: ImageCredit.all,
     }, root: false, serializer: SyncSerializer
   end
 
