@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729080040) do
+ActiveRecord::Schema.define(version: 20140811034540) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(version: 20140729080040) do
     t.integer  "audio_file_size"
     t.datetime "audio_updated_at"
     t.text     "extras",             default: "---\n:alternate_translations: []\n"
+  end
+
+  create_table "image_credits", force: true do |t|
+    t.string   "attribution_text"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
