@@ -7,7 +7,7 @@ ActiveAdmin.register Entry do
   actions :all, except: [:show]
 
   permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :description, 
-                :published?, :image, :audio, category_ids: []
+                :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
@@ -17,7 +17,17 @@ ActiveAdmin.register Entry do
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :description
       f.input :published?
+    end
+
+    f.inputs 'Image' do
       f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF', hint: thumbnail_image(f.object)
+      f.inputs 'Image Credit', for: [:image_credit, f.object.image_credit || ImageCredit.new] do |icf|
+        icf.input :attribution_text
+        icf.input :link
+      end
+    end
+
+    f.inputs 'Audio' do
       f.input :audio, as: :file, label: 'Audio - Must be MP3 or M4A (AAC)', hint: audio_link(f.object)
     end
 
