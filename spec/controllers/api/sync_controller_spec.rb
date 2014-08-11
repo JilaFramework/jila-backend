@@ -10,6 +10,10 @@ RSpec.describe Api::SyncController, :type => :controller do
                                  description: 'Mum\'s mum',
                                  categories: [category1, category2] }
 
+  before(:all) do
+    ApiSweeper.disabled = true
+  end
+
   before do
     allow(entry).to receive_message_chain(:audio, :exists?).and_return(true)
     allow(entry).to receive_message_chain(:audio, :url).and_return('s3.m4a')
