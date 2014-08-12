@@ -97,7 +97,7 @@ RSpec.describe Api::SyncController, :type => :controller do
     let(:credit2) { ImageCredit.new attribution_text: 'Red Flying Fox - PhotoGal90 - CC SA-3.0', link: 'http://linktoapicture.com/2.png'}
     let(:credits) { [credit1, credit2] }
 
-    before { expect(ImageCredit).to receive(:all).and_return(credits) }
+    before { expect(ImageCredit).to receive(:with_attribution).and_return(credits) }
 
     it 'should provide a list of all image credits' do
       get :image_credits

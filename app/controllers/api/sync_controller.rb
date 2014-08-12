@@ -14,7 +14,7 @@ class Api::SyncController < ApplicationController
 	end
 
   def image_credits
-    render json: ImageCredit.all, root: 'image_credits', each_serializer: ImageCreditSerializer
+    render json: ImageCredit.with_attribution, root: 'image_credits', each_serializer: ImageCreditSerializer
   end
 
   def all
@@ -23,7 +23,7 @@ class Api::SyncController < ApplicationController
     render json: {
       categories: categories_since(last_sync),
       entries: entries_since(last_sync),
-      image_credits: ImageCredit.all,
+      image_credits: ImageCredit.with_attribution,
     }, root: false, serializer: SyncSerializer
   end
 
