@@ -34,4 +34,14 @@ RSpec.describe Entry, :type => :model do
       expect(entries[1]).to eq(second)
     end
   end
+
+  describe :alphabetically do
+    it 'should return them sorted by entry word' do
+      entries = Entry.alphabetically
+
+      expect(entries.first).to eq(no_order)
+      expect(entries[1]).to eq(second)
+      expect(entries[2]).to eq(first)
+    end
+  end
 end

@@ -44,6 +44,10 @@ class Entry < ActiveRecord::Base
     order('display_order IS NULL, display_order ASC')
   end
 
+  def self.alphabetically
+    order(entry_word: :asc)
+  end
+
   def alternate_translations_raw
     self.alternate_translations.join("\n") unless self.alternate_translations.nil?
   end
