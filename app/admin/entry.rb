@@ -18,7 +18,7 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :description, 
+  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :display_order, :description, 
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
@@ -28,6 +28,7 @@ ActiveAdmin.register Entry do
       f.input :translation
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :description
+      f.input :display_order, hint: 'optional - if not specified will be sorted alphabetically'
       f.input :published?
     end
 
@@ -67,8 +68,8 @@ ActiveAdmin.register Entry do
     end
     column :word_type
     column :translation
-    column :description
     column :published?
+    column :display_order
     column :image do |entry|
       thumbnail_image entry
     end

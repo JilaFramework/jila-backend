@@ -40,6 +40,10 @@ class Entry < ActiveRecord::Base
     where('updated_at >= ?', updated_since)
   end
 
+  def self.by_display_order
+    order('display_order IS NULL, display_order ASC')
+  end
+
   def alternate_translations_raw
     self.alternate_translations.join("\n") unless self.alternate_translations.nil?
   end
