@@ -39,6 +39,6 @@ class Api::SyncController < ApplicationController
 
     entries = entries.since last_sync if last_sync
 
-    entries.published?
+    entries.by_display_order.alphabetically.published?
   end
 end

@@ -26,7 +26,11 @@ RSpec.describe Api::SyncController, :type => :controller do
   end
 
   describe 'GET #entries' do
-    before { expect(Entry).to receive(:published?).and_return([entry]) }
+    before do
+      expect(Entry).to receive(:by_display_order).and_return(Entry)
+      expect(Entry).to receive(:alphabetically).and_return(Entry)
+      expect(Entry).to receive(:published?).and_return([entry])
+    end
 
 		context 'with no date provided' do
       it 'should return all published entries in JSON' do
