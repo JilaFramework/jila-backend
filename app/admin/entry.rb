@@ -69,7 +69,7 @@ ActiveAdmin.register Entry do
     column :word_type
     column :translation
     column :published?
-    column :display_order
+    column 'Order', :display_order
     column :image do |entry|
       thumbnail_image entry
     end
