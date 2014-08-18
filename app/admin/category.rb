@@ -4,7 +4,7 @@ ActiveAdmin.register Category do
 
     def create
       create! do |format|
-        format.html { redirect_to edit_admin_categorys_path(Category.last) }
+        format.html { redirect_to edit_admin_category_path(Category.last) }
       end
     end
 
