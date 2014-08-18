@@ -35,6 +35,8 @@ GEM
       erubis (~> 2.7.0)
     active_model_serializers (0.8.1)
       activemodel (>= 3.0)
+    activeadmin-sortable (0.0.3)
+      activeadmin (>= 0.4)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -48,6 +50,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.4.0)
+      activerecord (>= 3.0)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -210,6 +214,8 @@ DEPENDENCIES
   actionpack-action_caching
   active_model_serializers
   activeadmin!
+  activeadmin-sortable
+  acts_as_list
   aws-sdk
   coffee-rails (~> 4.0.0)
   dalli

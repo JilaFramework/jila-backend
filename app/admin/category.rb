@@ -15,6 +15,10 @@ ActiveAdmin.register Category do
     end
   end
 
+  config.sort_order = 'position_asc'
+  config.paginate = false
+  sortable
+
   actions :all, except: [:show]
 
   permit_params :name, :image
@@ -29,6 +33,7 @@ ActiveAdmin.register Category do
   end
 
   index do
+    sortable_handle_column
     column :name do |category|
       link_to category.name, edit_admin_category_path(category)
     end

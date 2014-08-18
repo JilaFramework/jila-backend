@@ -20,6 +20,9 @@ gem 'aws-sdk'
 
 gem 'unicorn'
 
+gem 'acts_as_list'
+gem 'activeadmin-sortable'
+
 gem 'actionpack-action_caching'
 gem 'rails-observers'
 gem 'memcachier'

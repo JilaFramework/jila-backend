@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
 	validates :name, presence: true
 
   has_and_belongs_to_many :entries
+  acts_as_list
 
 	has_attached_file :image, styles: {
 	  thumbnail: '250x250>',
