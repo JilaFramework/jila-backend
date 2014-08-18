@@ -19,4 +19,8 @@ class Category < ActiveRecord::Base
   def self.with_published_entries
     joins(:entries).where(entries: {published?: true}).uniq
   end
+
+  def self.by_display_order
+    order('position ASC')
+  end
 end

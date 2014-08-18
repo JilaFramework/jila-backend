@@ -69,7 +69,8 @@ RSpec.describe Api::SyncController, :type => :controller do
 
   describe 'GET #categories' do
     context 'with no date provided' do
-      before { expect(Category).to receive(:with_published_entries).and_return([category1, category2]) }
+      before { expect(Category).to receive(:with_published_entries).and_return(Category) }
+      before { expect(Category).to receive(:by_display_order).and_return([category1, category2]) }
 
       it 'should return all categories with published entries' do
         get :categories
