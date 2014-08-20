@@ -72,6 +72,18 @@ RSpec.describe Api::SyncController, :type => :controller do
       before { expect(Category).to receive(:with_published_entries).and_return(Category) }
       before { expect(Category).to receive(:by_display_order).and_return([category1, category2]) }
 
+      let(:image_available) { true }
+      let(:image_suitable) { true }
+      let(:audio_available) { true }
+      let(:audio_suitable) { true }
+
+      before do
+        allow(category1).to receive(:image_game_suitable?).and_return(image_suitable)
+        allow(category1).to receive(:image_game_available?).and_return(image_available)
+        allow(category1).to receive(:audio_game_suitable?).and_return(audio_suitable)
+        allow(category1).to receive(:audio_game_available?).and_return(audio_available)
+      end
+
       it 'should return all categories with published entries' do
         get :categories
 
@@ -84,6 +96,48 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_category['name']).to eq('Family')
         expect(first_category['images']['thumbnail']).to eq('cat_thumb1.png')
         expect(first_category['images']['normal']).to eq('cat_normal1.png')
+      end
+
+      context 'when category is both available and suitable for image/audio games' do
+        it 'should allow games' do
+          get :categories
+
+          parsed_response = JSON.parse response.body
+          first_category = parsed_response['categories'].first
+
+          expect(first_category['games']['image']).to be(true)
+          expect(first_category['games']['audio']).to be(true)
+        end
+      end
+
+      context 'when category is available but not suitable for image/audio games' do
+        let(:image_suitable) { false }
+        let(:audio_suitable) { false }
+
+        it 'should not allow games' do
+          get :categories
+
+          parsed_response = JSON.parse response.body
+          first_category = parsed_response['categories'].first
+
+          expect(first_category['games']['image']).to be(false)
+          expect(first_category['games']['audio']).to be(false)
+        end
+      end
+
+      context 'when category is suitable but not available for image/audio games' do
+        let(:image_available) { false }
+        let(:audio_available) { false }
+
+        it 'should not allow games' do
+          get :categories
+
+          parsed_response = JSON.parse response.body
+          first_category = parsed_response['categories'].first
+
+          expect(first_category['games']['image']).to be(false)
+          expect(first_category['games']['audio']).to be(false)
+        end
       end
     end
 
