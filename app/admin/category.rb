@@ -21,12 +21,23 @@ ActiveAdmin.register Category do
 
   actions :all, except: [:show]
 
-  permit_params :name, :image
+  permit_params :name, :image, :image_game_available?, :audio_game_available?
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
       f.input :name
       f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF', hint: thumbnail_image(f.object)
+    end
+
+    f.inputs 'Game Settings' do
+      f.input :image_game_available?, 
+              label: 'Available for picture games?', 
+              hint: picture_hint(f.object),
+              input_html: {disabled: !f.object.image_game_suitable?}
+      f.input :audio_game_available?, 
+              label: 'Available for audio games?', 
+              hint: audio_hint(f.object),
+              input_html: {disabled: !f.object.audio_game_suitable?}
     end
     
     f.actions
