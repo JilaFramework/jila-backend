@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Entry, :type => :model do
+  before { ApiSweeper.disabled = true }
+  after { ApiSweeper.disabled = false }
+
   let!(:published_tomorrow) { Entry.create entry_word: 'published', word_type: 'noun', translation: 'published', published?: true, updated_at: DateTime.tomorrow }
   let!(:unpublished_yesterday) { Entry.create entry_word: 'unpublished', word_type: 'noun', translation: 'unpublished', published?: false, updated_at: DateTime.yesterday }
 

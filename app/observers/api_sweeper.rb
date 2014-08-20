@@ -4,7 +4,7 @@ class ApiSweeper < ActionController::Caching::Sweeper
   @@disabled = false
 
   def self.disabled= new_state
-    puts "Setting API sweeper state to disabled: #{new_state}"
+    # puts "Setting API sweeper state to disabled: #{new_state}"
     @@disabled = new_state
   end
 

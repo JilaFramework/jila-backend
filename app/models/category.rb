@@ -23,4 +23,12 @@ class Category < ActiveRecord::Base
   def self.by_display_order
     order('position ASC')
   end
+
+  def image_game_suitable?
+    entries.where('image_file_name IS NOT NULL').count > 3
+  end
+
+  def audio_game_suitable?
+    entries.where('audio_file_name IS NOT NULL').count > 1
+  end
 end
