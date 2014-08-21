@@ -9,6 +9,16 @@ class ApiSweeper < ActionController::Caching::Sweeper
   end
 
   def after_save record
+    expire_cache
+  end
+
+  def after_destroy record
+    expire_cache
+  end
+
+  private
+
+  def expire_cache
     unless @@disabled
       fragment_path = ActionController::Caching::Actions::ActionCachePath.new(self, {
           controller: '/api/sync',
