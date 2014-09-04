@@ -1,6 +1,9 @@
 class Category < ActiveRecord::Base
 	validates :name, presence: true
 
+  has_one :image_credit, dependent: :destroy
+  accepts_nested_attributes_for :image_credit
+
   has_and_belongs_to_many :entries
   acts_as_list
 

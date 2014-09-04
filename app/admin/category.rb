@@ -21,12 +21,19 @@ ActiveAdmin.register Category do
 
   actions :all, except: [:show]
 
-  permit_params :name, :image, :image_game_available?, :audio_game_available?
+  permit_params :name, :image, :image_game_available?, :audio_game_available?, image_credit_attributes: [:attribution_text, :link]
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
       f.input :name
+    end
+
+    f.inputs 'Image' do
       f.input :image, as: :file, label: 'Image - Must be JPEG, PNG or GIF', hint: thumbnail_image(f.object)
+      f.inputs 'Image Credit', for: [:image_credit, f.object.image_credit || ImageCredit.new] do |icf|
+        icf.input :attribution_text
+        icf.input :link
+      end
     end
 
     f.inputs 'Game Settings' do
