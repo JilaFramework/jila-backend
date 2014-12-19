@@ -9,3 +9,5 @@ The **Jila** backend is written using [Ruby on Rails](http://rubyonrails.org/) a
 # Hosting
 
 The backend is a fairly vanilla Ruby on Rails application, so hosting arrangements can be whatever suits the user. The team have been using [Heroku](http://www.heroku.com) for both development/testing and production environments. Asset storage (images and audio) is configured to use [Amazon Simple Storage Service (S3)](http://aws.amazon.com/s3/) for production-like environments, and the local file system for development.
+
+The production environment uses [Paperclip](https://github.com/thoughtbot/paperclip) to upload the assets to S3. For each deployment environment you will have to set environment variables for the S3 bucket name, and the credentials, as outlined in **production.rb**.
