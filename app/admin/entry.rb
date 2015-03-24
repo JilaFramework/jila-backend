@@ -18,7 +18,7 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :display_order, :description, 
+  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :display_order, :description,
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
@@ -27,6 +27,7 @@ ActiveAdmin.register Entry do
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :translation
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
+      f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :description
       f.input :display_order, hint: 'optional - if not specified will be sorted alphabetically'
       f.input :published?
@@ -79,7 +80,7 @@ ActiveAdmin.register Entry do
     column :categories do |entry|
       entry.categories.map do |c|
         span c.name, class: 'category'
-      end 
+      end
     end
     actions
   end
