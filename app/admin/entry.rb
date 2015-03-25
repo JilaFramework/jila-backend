@@ -18,7 +18,7 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :display_order, :description,
+  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
