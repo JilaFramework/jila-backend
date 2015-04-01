@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe Api::SyncController, :type => :controller do
 	let(:category1) { Category.new id: 37, name: 'Family' }
   let(:category2) { Category.new id: 24, name: 'Body Parts' }
-  let(:entry) { Entry.new id: 3, entry_word: 'Mimi', 
+  let(:entry) { Entry.new id: 3, entry_word: 'Mimi',
                                  word_type: 'noun',
-                                 translation: 'Grandma', 
+                                 translation: 'Grandma',
                                  alternate_translations: ['Granny'],
+																 alternate_spellings: ['Mummy'],
                                  description: 'Mum\'s mum',
                                  categories: [category1, category2] }
 
@@ -48,12 +49,13 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_entry['word_type']).to eq('noun')
         expect(first_entry['translation']).to eq('Grandma')
         expect(first_entry['alternate_translations']).to eq(['Granny'])
+				expect(first_entry['alternate_spellings']).to eq(['Mummy'])
         expect(first_entry['description']).to eq('Mum\'s mum')
         expect(first_entry['audio']).to eq('s3.m4a')
         expect(first_entry['images']['thumbnail']).to eq('thumb.png')
         expect(first_entry['images']['normal']).to eq('normal.png')
         expect(first_entry['categories']).to eq([37,24])
-        
+
       end
     end
 
@@ -181,6 +183,6 @@ RSpec.describe Api::SyncController, :type => :controller do
       expect(parsed_response).to have_key('categories')
       expect(parsed_response).to have_key('entries')
       expect(parsed_response).to have_key('image_credits')
-    end 
+    end
   end
 end

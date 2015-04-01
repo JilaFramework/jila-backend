@@ -1,7 +1,7 @@
 class Entry < ActiveRecord::Base
-	validates :entry_word, :word_type, :translation, presence: true	
+	validates :entry_word, :word_type, :translation, presence: true
 
-  store :extras, accessors: [ :alternate_translations ]
+  store :extras, accessors: [ :alternate_translations, :alternate_spellings]
 
   has_one :image_credit, dependent: :destroy
   accepts_nested_attributes_for :image_credit
@@ -46,6 +46,15 @@ class Entry < ActiveRecord::Base
 
   def self.alphabetically
     order(entry_word: :asc)
+  end
+
+	def alternate_spellings_raw
+    self.alternate_spellings.join("\n") unless self.alternate_spellings.nil?
+  end
+
+  def alternate_spellings_raw= values
+    self.alternate_spellings = []
+    self.alternate_spellings = values.split("\n")
   end
 
   def alternate_translations_raw
