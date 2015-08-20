@@ -35,8 +35,11 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  file_template = "image_:id_:style.:extension"
+  backend_url = 'http:/localhost:3000'
+
   config.paperclip_defaults = {
-    :storage => :filesystem
+    :storage => :filesystem,
+    :url => "#{backend_url}/system/:class/:attachment/:id_partition/:style/:class_:id.:extension",
+    :default_url => "#{backend_url}/images/:style/missing.png"
   }
 end
