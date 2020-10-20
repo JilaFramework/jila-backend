@@ -18,6 +18,9 @@ Install Ruby gems
 ### Development
 Launch a Rails server however you wish, see their [documentation](http://guides.rubyonrails.org/getting_started.html) if you have any particular questions. The simplest way to launch it would be to run `bundle exec rails s` which will launch a server at 'http://localhost:3000'.
 
+#### Via Docker
+Ensure you have docker installed first. Run the `scripts/run_local.sh` which will build and run the backend server using docker. It should be accessible form the same location `http://localhost:3000`.
+
 ## Deployment
 The backend is a fairly vanilla Ruby on Rails application, so hosting arrangements can be whatever suits the user. The team have been using [Heroku](http://www.heroku.com) for both development/testing and production environments. Asset storage (images and audio) is configured to use [Amazon Simple Storage Service (S3)](http://aws.amazon.com/s3/) for production-like environments, and the local file system for development.
 
