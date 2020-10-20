@@ -5,8 +5,11 @@ line_num = 0
 
 File.open(input_file).each do |line|
     print "#{line_num += 1} #{line}"
-    result = line.scan(/(\S+)\W+\[(.+)\]\W+(\w+)\.(.+)Category:\W+(.+)/)
-    print result
-    break
-end
+    if not (line.include? "Category")
+        line = line.gsub("\n", "Category: None\n")
+    end
 
+    result = line.scan(/(\S+)\W+\[(.+)\]\W+([^.]+)\.(.+)Category:\W+([^.]+)/)
+    print result
+    print "\n\n"
+end
