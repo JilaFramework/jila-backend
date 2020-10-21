@@ -82,6 +82,7 @@ Rails.application.configure do
 
   # The Environment Var are specific to heroku bucketeer add on you can alter them 
   # to point to other AWS credentials as you wish
+  # Note: https is enforced on most mobile apps
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_protocol => :https,
