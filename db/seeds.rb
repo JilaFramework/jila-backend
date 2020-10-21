@@ -10,14 +10,15 @@ require 'csv'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-input_file = "db/lexique_dict.txt"
+input_file = "db/lexique_dict_full.txt"
 csv_file = "db/parsed_lexique.csv"
 
 def sanitise(value)
-    return value.strip().sub("'", "''")
+    return value.strip().gsub("'", "''")
 end
 
 def save_to_db(entry)
+    return if (!entry)
     print("entry", entry)
     word = sanitise(entry[0])
     word_type = sanitise(entry[2])
@@ -35,16 +36,19 @@ line_num = 0
 
 CSV.open(csv_file, "w") do |csv|
     File.open(input_file,:encoding => 'utf-8').each do |line|
-        #print "#{line_num += 1} #{line}"
+        puts "Skip line!" if (line.include? "1 •") or (line.include? "2 •")
+        next if (line.include? "1 •") or (line.include? "2 •")
+
         if not (line.include? "Category")
             line = line.gsub("\n", "Category: None\n")
         end
 
         result = line.scan(/(\S+)\W+\[(.+)\]\W+([^.]+)\.(.+)Category:\W+([^.]+)/)
         actual_value = result.first()
-        save_to_db(actual_value)
-        csv << actual_value
-        # print result
+        if actual_value
+            save_to_db(actual_value)
+            csv << actual_value
+        end
         print "\n\n"
     end
 end
