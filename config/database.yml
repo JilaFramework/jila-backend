@@ -21,6 +21,7 @@ test:
   database: db/test.sqlite3
 
 # This will be overriden by Heroku but is useful here for testing 
-production:	
+production:
   <<: *default
-  database: db/production.sqlite3
+  url: <%= ENV['DATABASE_URL'] %>
+  
