@@ -84,6 +84,7 @@ Rails.application.configure do
   # to point to other AWS credentials as you wish
   config.paperclip_defaults = {
     :storage => :s3,
+    :s3_protocol => :https,
     :s3_credentials => {
       :bucket => ENV['BUCKETEER_BUCKET_NAME'],
       :access_key_id => ENV['BUCKETEER_AWS_ACCESS_KEY_ID'],
