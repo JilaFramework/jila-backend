@@ -6,15 +6,26 @@ require 'csv'
 #
 # Examples:
 #
+
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 input_file = "db/lexique_dict.txt"
 csv_file = "db/parsed_lexique.csv"
 
+def sanitise(value)
+    return value.strip().sub("'", "''")
+end
+
 def save_to_db(entry)
     print("entry", entry)
-    sql = "INSERT INTO entries(entry_word) VALUES('#{entry[0]}')"
+    word = sanitise(entry[0])
+    word_type = sanitise(entry[2])
+    translation = sanitise(entry[3])
+    #new_word = ActiveRecord::Base.connection.quote(entry[0])
+
+    sql = "INSERT INTO entries(entry_word, word_type, translation) VALUES('#{word}',
+    '#{word_type}', '#{translation}')"
     print("Execute SQL", sql)
     ActiveRecord::Base.connection.execute(sql)
 end
