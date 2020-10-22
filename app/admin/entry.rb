@@ -18,17 +18,21 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
+  permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
+      f.input :pronunciation
       f.input :translation
+      f.input :meaning
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :description
+      f.input :example
+      f.input :example_translation
       f.input :display_order, hint: 'optional - if not specified will be sorted alphabetically'
       f.input :published?
     end
@@ -69,6 +73,10 @@ ActiveAdmin.register Entry do
     end
     column :word_type
     column :translation
+    column :pronunciation
+    column :meaning
+    column :example
+    column :example_translation
     column :published?
     column 'Order', :display_order
     column :image do |entry|
