@@ -13,6 +13,8 @@ require 'csv'
 input_file = "db/lexique_dict_full.txt"
 csv_file = "db/parsed_lexique.csv"
 
+ApiSweeper.disabled = true
+
 def sanitise(value)
     return value.strip().gsub("'", "''")
 end
@@ -23,12 +25,25 @@ def save_to_db(entry)
     word = sanitise(entry[0])
     word_type = sanitise(entry[2])
     translation = sanitise(entry[3])
-    #new_word = ActiveRecord::Base.connection.quote(entry[0])
+    category_value = sanitise(entry[3])
 
-    sql = "INSERT INTO entries(entry_word, word_type, translation) VALUES('#{word}',
-    '#{word_type}', '#{translation}')"
-    print("Execute SQL", sql)
-    ActiveRecord::Base.connection.execute(sql)
+    # This solution works
+    # # category_entry
+    # sql = "INSERT INTO entries(entry_word, word_type, translation) VALUES('#{word}',
+    # '#{word_type}', '#{translation}')"
+    # print("Execute SQL", sql)
+    # ActiveRecord::Base.connection.execute(sql)
+
+    # This one
+    category = Category.find_or_create_by(name: category_value)
+
+    entry = Entry.create(
+        entry_word: word,
+        word_type: word_type,
+        translation: translation,
+        categories: [category]
+    )
+
 end
 
 File.delete(csv_file) if File.exist?(csv_file)
