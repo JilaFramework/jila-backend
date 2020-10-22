@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Which bundler?
-          command: bundle -v
+          command: bundle -v && bundle config git.allow_insecure true
       - ruby/bundle-install
       - run:
           name: Run Rspec 🏃‍♂️
