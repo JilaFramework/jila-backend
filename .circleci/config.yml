@@ -19,10 +19,11 @@ jobs:
           command: bundle exec rspec
 
 workflows:
-  publish:
+  heroku_deploy:
     jobs:
       - build
       - heroku/push-docker-image:
+          executor: default
           requires:
             - build
           filters:
