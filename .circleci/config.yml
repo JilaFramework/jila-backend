@@ -18,8 +18,6 @@ jobs:
           name: Run Rspec 🏃‍♂️
           command: bundle exec rspec
   deploy:
-    docker:
-      - image: circleci/ruby:2.1-node
     steps:
       - checkout
       - heroku/push-docker-image
