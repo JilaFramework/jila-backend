@@ -23,7 +23,6 @@ jobs:
     steps:
       - checkout
       - heroku/push-docker-image
-      - heroku/release-docker-image
 
 workflows:
   publish:
