@@ -17,13 +17,19 @@ jobs:
       - run:
           name: Run Rspec 🏃‍♂️
           command: bundle exec rspec
+  heroku_deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/push-docker-image
+      - heroku/release-docker-image
 
 workflows:
-  heroku_deploy:
+  deploy:
     jobs:
       - build
-      - heroku/push-docker-image:
-          executor: default
+      - heroku_deploy:
           requires:
             - build
           filters:
