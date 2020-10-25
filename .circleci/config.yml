@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2 
+  heroku: circleci/heroku@1.2.2
 
 jobs:
   build:
@@ -16,4 +17,20 @@ jobs:
       - run:
           name: Run Rspec 🏃‍♂️
           command: bundle exec rspec
+  deploy:
+    docker:
+      - image: circleci/ruby:2.1-node
+    steps:
+      - checkout
+      - heroku/push-docker-image
 
+workflows:
+  publish:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
