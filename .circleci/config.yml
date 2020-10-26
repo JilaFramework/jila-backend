@@ -20,7 +20,9 @@ jobs:
   heroku_deploy:
     executor: heroku/default
     parameters:
-      process-types: web
+      process-types:
+        default: "web"
+        type: string
     steps:
       - checkout
       - setup_remote_docker:
