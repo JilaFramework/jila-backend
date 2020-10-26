@@ -24,11 +24,12 @@ jobs:
       - setup_remote_docker:
           version: 19.03.13
       - heroku/install
-      - run: heroku container:login && heroku container:push -a gooniyandi-backend web
-      - heroku/release-docker-image
+      - run: heroku container:login
+      - run: heroku container:push -a $APP_NAME web
+      - run: heroku container:release -a $APP_NAME web
 
 workflows:
-  deploy:
+  build-and-deploy:
     jobs:
       - build
       - heroku_deploy:
