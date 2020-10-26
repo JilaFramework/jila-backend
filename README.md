@@ -1,4 +1,4 @@
-[![<ORG_NAME>](https://circleci.com/gh/yiyili-community/gooniyandi-backend.svg?style=svg)](https://github.com/yiyili-community/gooniyandi-backend)
+[![yiyili-community](https://circleci.com/gh/yiyili-community/gooniyandi-backend.svg?style=svg)](https://app.circleci.com/pipelines/github/yiyili-community/gooniyandi-backend?branch=master)
 
 ## What is this?
 
