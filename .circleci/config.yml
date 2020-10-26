@@ -1,0 +1,64 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+  heroku: circleci/heroku@1.2.2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.1-node
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v && bundle config git.allow_insecure true
+      - ruby/bundle-install
+      - run:
+          name: Run Rspec 🏃‍♂️
+          command: bundle exec rspec
+  heroku-deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - heroku/install
+      - run: heroku container:login
+      - run: heroku container:push -a $HEROKU_APP_NAME web
+      - run: heroku container:release -a $HEROKU_APP_NAME web
+  prod-migration:
+    executor: heroku/default
+    steps:
+      - heroku/install
+      - run: heroku run -a $HEROKU_APP_NAME rake db:migrate
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
+      - heroku-deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - approve-prod-migration:
+          type: approval
+          requires:
+            - heroku-deploy
+      - prod-migration:
+          requires:
+            - approve-prod-migration
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
+      - heroku-deploy
