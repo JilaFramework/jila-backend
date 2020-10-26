@@ -30,7 +30,7 @@ class Api::SyncController < ApplicationController
   private
 
   def categories_since last_sync
-    categories = Category.by_display_order.with_published_entries
+    categories = Category.with_published_entries.by_display_order
     last_sync ? categories.since(last_sync) : categories
   end
 
