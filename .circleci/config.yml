@@ -19,6 +19,8 @@ jobs:
           command: bundle exec rspec
   heroku_deploy:
     executor: heroku/default
+    env:
+      process-types: web
     steps:
       - checkout
       - setup_remote_docker:
