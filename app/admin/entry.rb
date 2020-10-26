@@ -18,7 +18,7 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
-  permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
+  permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
@@ -26,7 +26,6 @@ ActiveAdmin.register Entry do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :pronunciation
-      f.input :translation
       f.input :meaning
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line', placeholder: 'One per line', input_html: {rows: 3}
@@ -72,7 +71,6 @@ ActiveAdmin.register Entry do
       link_to entry.entry_word, edit_admin_entry_path(entry)
     end
     column :word_type
-    column :translation
     column :pronunciation
     column :meaning
     column :example
@@ -95,6 +93,6 @@ ActiveAdmin.register Entry do
 
   filter :categories
   filter :entry_word
-  filter :translation
+  filter :meaning
   filter :published?, as: :select, collection: [true, false]
 end

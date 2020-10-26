@@ -5,7 +5,7 @@ RSpec.describe Api::SyncController, :type => :controller do
   let(:category2) { Category.new id: 24, name: 'Body Parts' }
   let(:entry) { Entry.new id: 3, entry_word: 'Mimi',
                                  word_type: 'noun',
-                                 translation: 'Grandma',
+                                 meaning: 'Grandma',
                                  alternate_translations: ['Granny'],
 																 alternate_spellings: ['Mummy'],
                                  description: 'Mum\'s mum',
@@ -47,7 +47,7 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_entry['id']).to eq(3)
         expect(first_entry['entry_word']).to eq('Mimi')
         expect(first_entry['word_type']).to eq('noun')
-        expect(first_entry['translation']).to eq('Grandma')
+        expect(first_entry['meaning']).to eq('Grandma')
         expect(first_entry['alternate_translations']).to eq(['Granny'])
 				expect(first_entry['alternate_spellings']).to eq(['Mummy'])
         expect(first_entry['description']).to eq('Mum\'s mum')
