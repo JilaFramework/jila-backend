@@ -45,9 +45,11 @@ workflows:
               only: master
       - approve-prod-migration:
           type: approval
-          requires: heroku-deploy
+          requires:
+            - heroku-deploy
       - prod-migration:
-          requires: approve-prod-migration
+          requires:
+            - approve-prod-migration
 
   nightly:
     triggers:
