@@ -25,8 +25,8 @@ jobs:
           version: 19.03.13
       - heroku/install
       - run: heroku container:login
-      - run: heroku container:push -a $APP_NAME web
-      - run: heroku container:release -a $APP_NAME web
+      - run: heroku container:push -a $HEROKU_APP_NAME web
+      - run: heroku container:release -a $HEROKU_APP_NAME web
 
 workflows:
   build-and-deploy:
