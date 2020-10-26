@@ -1,10 +1,8 @@
-[![CircleCI](https://circleci.com/gh/yiyili-community/gooniyandi-backend/tree/master.svg?style=svg)](https://app.circleci.com/pipelines/github/yiyili-community/gooniyandi-backend?branch=master)
-
 ## What is this?
 
 [**Jila**](http://jilaframework.github.io) is a framework for building simple language learning apps. This particular repository is for the administrative backend and the API used to communicate with the app.
 
-The **Jila** administration console is built using [Ruby on Rails](http://rubyonrails.org/) and the [ActiveAdmin](http://activeadmin.info/) framework. 
+The **Jila** administration console is built using [Ruby on Rails](http://rubyonrails.org/) and the [ActiveAdmin](http://activeadmin.info/) framework.
 
 ## Prerequisites
 
