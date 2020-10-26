@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@0.1.2
   heroku: circleci/heroku@1.2.2
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Run Rspec 🏃‍♂️
           command: bundle exec rspec
-  heroku_deploy:
+  heroku-deploy:
     executor: heroku/default
     steps:
       - checkout
@@ -27,17 +27,30 @@ jobs:
       - run: heroku container:login
       - run: heroku container:push -a $HEROKU_APP_NAME web
       - run: heroku container:release -a $HEROKU_APP_NAME web
+  prod-migration:
+    executor: heroku/default
+    steps:
+      - heroku/install
+      - run: heroku run -a $HEROKU_APP_NAME rake db:migrate
 
 workflows:
   build-and-deploy:
     jobs:
       - build
-      - heroku_deploy:
+      - heroku-deploy:
           requires:
             - build
           filters:
             branches:
               only: master
+      - approve-prod-migration:
+          type: approval
+          requires:
+            - heroku-deploy
+      - prod-migration:
+          requires:
+            - approve-prod-migration
+
   nightly:
     triggers:
       - schedule:
@@ -48,4 +61,4 @@ workflows:
                 - master
     jobs:
       - build
-      - heroku_deploy
+      - heroku-deploy

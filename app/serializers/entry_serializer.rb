@@ -1,5 +1,5 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id, :entry_word, :pronunciation, :word_type, :translation, :meaning, :example, :example_translation, :alternate_translations, :alternate_spellings, :description, :audio, :images, :categories
+  attributes :id, :entry_word, :pronunciation, :word_type, :meaning, :example, :example_translation, :alternate_translations, :alternate_spellings, :description, :audio, :images, :categories
 
   def audio
   	object.audio.url if object.audio.exists?
