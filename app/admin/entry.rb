@@ -18,7 +18,11 @@ ActiveAdmin.register Entry do
 
   actions :all, except: [:show]
 
+<<<<<<< HEAD
   permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
+=======
+  permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
+>>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
                 :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
 
   form(html: { multipart: true }) do |f|
@@ -26,6 +30,10 @@ ActiveAdmin.register Entry do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :pronunciation
+<<<<<<< HEAD
+=======
+      f.input :translation
+>>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
       f.input :meaning
       f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
       f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line', placeholder: 'One per line', input_html: {rows: 3}
@@ -71,6 +79,10 @@ ActiveAdmin.register Entry do
       link_to entry.entry_word, edit_admin_entry_path(entry)
     end
     column :word_type
+<<<<<<< HEAD
+=======
+    column :translation
+>>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
     column :pronunciation
     column :meaning
     column :example
