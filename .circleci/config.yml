@@ -48,4 +48,4 @@ workflows:
                 - master
     jobs:
       - build
-      - deploy
+      - heroku_deploy
