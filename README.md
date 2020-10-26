@@ -1,3 +1,5 @@
+[![<ORG_NAME>](https://circleci.com/gh/yiyili-community/gooniyandi-backend.svg?style=svg)](https://github.com/yiyili-community/gooniyandi-backend)
+
 ## What is this?
 
 [**Jila**](http://jilaframework.github.io) is a framework for building simple language learning apps. This particular repository is for the administrative backend and the API used to communicate with the app.
