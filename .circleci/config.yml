@@ -1,10 +1,6 @@
 version: 2.1
 orbs:
-<<<<<<< HEAD
   ruby: circleci/ruby@0.1.2
-=======
-  ruby: circleci/ruby@0.1.2 
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
   heroku: circleci/heroku@1.2.2
 
 jobs:
@@ -21,11 +17,7 @@ jobs:
       - run:
           name: Run Rspec 🏃‍♂️
           command: bundle exec rspec
-<<<<<<< HEAD
   heroku-deploy:
-=======
-  heroku_deploy:
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
     executor: heroku/default
     steps:
       - checkout
@@ -33,7 +25,6 @@ jobs:
           version: 19.03.13
       - heroku/install
       - run: heroku container:login
-<<<<<<< HEAD
       - run: heroku container:push -a $HEROKU_APP_NAME web
       - run: heroku container:release -a $HEROKU_APP_NAME web
   prod-migration:
@@ -41,32 +32,21 @@ jobs:
     steps:
       - heroku/install
       - run: heroku run -a $HEROKU_APP_NAME rake db:migrate
-=======
-      - run: heroku container:push -a $APP_NAME web
-      - run: heroku container:release -a $APP_NAME web
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
 
 workflows:
   build-and-deploy:
     jobs:
       - build
-<<<<<<< HEAD
       - heroku-deploy:
-=======
-      - heroku_deploy:
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
           requires:
             - build
           filters:
             branches:
               only: master
-<<<<<<< HEAD
       - prod-migration:
           requires:
             - heroku-deploy
 
-=======
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
   nightly:
     triggers:
       - schedule:
@@ -77,8 +57,4 @@ workflows:
                 - master
     jobs:
       - build
-<<<<<<< HEAD
       - heroku-deploy
-=======
-      - heroku_deploy
->>>>>>> 5582310e8d5ff93e98b18a85af94cccfba6fe128
