@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/yiyili-community/gooniyandi-backend/tree/master.svg?style=svg)](https://app.circleci.com/pipelines/github/yiyili-community/gooniyandi-backend/tree/master)
+[![CircleCI](https://circleci.com/gh/yiyili-community/gooniyandi-backend/tree/master.svg?style=svg)](https://app.circleci.com/pipelines/github/yiyili-community/gooniyandi-backend?branch=master)
 
 ## What is this?
 
