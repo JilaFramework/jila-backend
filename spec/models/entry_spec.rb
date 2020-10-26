@@ -4,12 +4,12 @@ RSpec.describe Entry, :type => :model do
   before { ApiSweeper.disabled = true }
   after { ApiSweeper.disabled = false }
 
-  let!(:published_tomorrow) { Entry.create entry_word: 'published', word_type: 'noun', translation: 'published', published?: true, updated_at: DateTime.tomorrow }
-  let!(:unpublished_yesterday) { Entry.create entry_word: 'unpublished', word_type: 'noun', translation: 'unpublished', published?: false, updated_at: DateTime.yesterday }
+  let!(:published_tomorrow) { Entry.create entry_word: 'published', word_type: 'noun', meaning: 'published', published?: true, updated_at: DateTime.tomorrow }
+  let!(:unpublished_yesterday) { Entry.create entry_word: 'unpublished', word_type: 'noun', meaning: 'unpublished', published?: false, updated_at: DateTime.yesterday }
 
-  let!(:first) { Entry.create display_order: 1, entry_word: 'C', word_type: 'noun', translation: 'first', published?: false, updated_at: DateTime.yesterday }
-  let!(:second) { Entry.create display_order: 2, entry_word: 'B', word_type: 'noun', translation: 'first', published?: false, updated_at: DateTime.yesterday }
-  let!(:no_order) { Entry.create entry_word: 'A', word_type: 'noun', translation: 'first', published?: false, updated_at: DateTime.yesterday }
+  let!(:first) { Entry.create display_order: 1, entry_word: 'C', word_type: 'noun', meaning: 'first', published?: false, updated_at: DateTime.yesterday }
+  let!(:second) { Entry.create display_order: 2, entry_word: 'B', word_type: 'noun', meaning: 'first', published?: false, updated_at: DateTime.yesterday }
+  let!(:no_order) { Entry.create entry_word: 'A', word_type: 'noun', meaning: 'first', published?: false, updated_at: DateTime.yesterday }
 
   describe :published? do
   	it 'should only return published records' do

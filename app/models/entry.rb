@@ -1,5 +1,5 @@
 class Entry < ActiveRecord::Base
-	validates :entry_word, :word_type, :translation, presence: true
+	validates :entry_word, :word_type, :meaning, presence: true
 
   store :extras, accessors: [ :alternate_translations, :alternate_spellings]
 

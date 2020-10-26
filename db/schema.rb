@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201021052444) do
+ActiveRecord::Schema.define(version: 20201026013921) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20201021052444) do
   create_table "entries", force: true do |t|
     t.string   "entry_word"
     t.string   "word_type"
-    t.string   "translation"
     t.text     "description"
     t.boolean  "published?"
     t.datetime "created_at"
