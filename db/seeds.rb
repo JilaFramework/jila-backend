@@ -16,32 +16,51 @@ csv_file = "db/parsed_lexique.csv"
 ApiSweeper.disabled = true
 
 def sanitise(value)
-    return value.strip().gsub("'", "''")
+    return value.lstrip.strip().gsub("'", "''")
 end
 
-def save_to_db(entry)
+def extract_all_translations(sentences)
+    splits = sentences.split(".")
+    if splits.length != 3 # exceptional cases - just treat everything  as "translation"
+        translation =  sentences.lstrip.strip
+        # print("\nEXCEPTION traslation!", translation)
+        return translation, nil, nil
+    end
+    translation = splits[0].lstrip.strip
+    example = nil
+    example_translation = nil
+    if splits.length() >= 2
+        example = splits[1].lstrip.strip
+    end
+    if splits.length() >= 3
+        example_translation = splits[2].lstrip.strip
+    end
+    # print("\nsplits", splits)
+    # print("\ntranslation: ", translation, "\nexample: ", example, ";\nexample_translation:", example_translation)
+    return translation, example, example_translation
+end
+
+def save_entry_to_db(entry)
+        # Example of an entry:
+        # Bambarrwarn  	[Bam-barr-warn] nominal. Goosehole. billabong southwest of the Fitzroy Crossing Lodge. Bambarrwarn gamba goorroorla. Goosehole is a billabong.
+
     return if (!entry)
-    print("entry", entry)
     word = sanitise(entry[0])
+    pronunciation = sanitise(entry[1])
     word_type = sanitise(entry[2])
-    translation = sanitise(entry[3])
-    category_value = sanitise(entry[3])
+    translation, example, example_translation = extract_all_translations(sanitise(entry[3]))
+    category_value = sanitise(entry[4])
 
-    # This solution works
-    # # category_entry
-    # sql = "INSERT INTO entries(entry_word, word_type, translation) VALUES('#{word}',
-    # '#{word_type}', '#{translation}')"
-    # print("Execute SQL", sql)
-    # ActiveRecord::Base.connection.execute(sql)
-
-    # This one
     category = Category.find_or_create_by(name: category_value)
 
     entry = Entry.create(
         entry_word: word,
         word_type: word_type,
         translation: translation,
-        categories: [category]
+        example: example,
+        example_translation: example_translation,
+        categories: [category],
+        pronunciation: pronunciation
     )
 
 end
@@ -51,6 +70,9 @@ line_num = 0
 
 CSV.open(csv_file, "w") do |csv|
     File.open(input_file,:encoding => 'utf-8').each do |line|
+        if line_num > 50
+            break
+        end
         puts "Skip line!" if (line.include? "1 •") or (line.include? "2 •")
         next if (line.include? "1 •") or (line.include? "2 •")
 
@@ -61,9 +83,10 @@ CSV.open(csv_file, "w") do |csv|
         result = line.scan(/(\S+)\W+\[(.+)\]\W+([^.]+)\.(.+)Category:\W+([^.]+)/)
         actual_value = result.first()
         if actual_value
-            save_to_db(actual_value)
+            save_entry_to_db(actual_value)
             csv << actual_value
         end
         print "\n\n"
+        line_num += 1
     end
 end
