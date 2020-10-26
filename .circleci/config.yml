@@ -21,6 +21,8 @@ jobs:
     executor: heroku/default
     steps:
       - checkout
+      - setup_remote_docker:
+        version: 19.03.13
       - heroku/install
       - heroku/push-docker-image
       - heroku/release-docker-image
