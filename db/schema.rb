@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20201026013921) do
 
-  create_table "active_admin_comments", force: true do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20201026013921) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
-  create_table "admin_users", force: true do |t|
+  create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20201026013921) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(version: 20201026013921) do
     t.boolean  "audio_game_available?", default: true
   end
 
-  create_table "categories_entries", force: true do |t|
+  create_table "categories_entries", force: :cascade do |t|
     t.integer "category_id"
     t.integer "entry_id"
   end
 
-  create_table "entries", force: true do |t|
+  create_table "entries", force: :cascade do |t|
     t.string   "entry_word"
     t.string   "word_type"
     t.text     "description"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20201026013921) do
     t.string   "example_translation"
   end
 
-  create_table "image_credits", force: true do |t|
+  create_table "image_credits", force: :cascade do |t|
     t.string   "attribution_text"
     t.string   "link"
     t.datetime "created_at"

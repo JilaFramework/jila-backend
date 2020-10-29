@@ -37,7 +37,7 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
         panel "Brought to you by" do
-          image_tag("/assets/tw_logo.png", width: "100%", style: "margin-top: 15px;")
+          image_tag("tw_logo.png", width: "100%", style: "margin-top: 15px;")
         end
       end
     end
