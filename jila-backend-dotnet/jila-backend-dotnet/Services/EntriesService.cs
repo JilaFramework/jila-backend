@@ -3,17 +3,21 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using jila_backend_dotnet.Models;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace jila_backend_dotnet.Services
 {
     public class EntriesService : IEntriesService
     {
         private readonly IHttpClientFactory _client;
-        private string STRAPI_ENDPOINT = "http://strapi.home/entries";
+        private readonly IConfiguration _config;
+        private string STRAPI_ENDPOINT = string.Empty;
 
-        public EntriesService(IHttpClientFactory client)
+        public EntriesService(IHttpClientFactory client, IConfiguration config)
         {
             _client = client;
+            _config = config;
+            STRAPI_ENDPOINT = _config["STRAPI_ENDPOINT"];
         }
 
         public enum EntriesCategories
@@ -29,11 +33,11 @@ namespace jila_backend_dotnet.Services
             HttpResponseMessage res = null;
             if(categories == EntriesCategories.COMMON_PHRASES)
             {
-                res = await client.GetAsync(STRAPI_ENDPOINT + "?category=common_phrases");
+                res = await client.GetAsync(STRAPI_ENDPOINT + "/entries" + "?category=common_phrases");
             }
             else
             {
-                res = await client.GetAsync(STRAPI_ENDPOINT + "?category=reptiles");
+                res = await client.GetAsync(STRAPI_ENDPOINT + "/entries" + "?category=reptiles");
             }
 
             if (res.IsSuccessStatusCode)
@@ -52,7 +56,7 @@ namespace jila_backend_dotnet.Services
             }
 
             var client = _client.CreateClient();
-            HttpResponseMessage res = await client.GetAsync(STRAPI_ENDPOINT + $"?translation={searchWord}");
+            HttpResponseMessage res = await client.GetAsync(STRAPI_ENDPOINT + "/entries" + $"?translation={searchWord}");
 
             if (res.IsSuccessStatusCode)
             {

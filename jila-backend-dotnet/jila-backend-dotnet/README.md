@@ -31,9 +31,7 @@ You will also need the below schema for the about page information:
 	
 ###### Configuring and running the API
 	
-Great, now Strapi is configured, simply navigate to the `Services/EntriesService.cs` file, and change the STRAPI_ENDPOINT variable to match the endpoint for your deployed version of Strapi.
-	
-Also change the STRAPI_ENDPOINT variable in the `Services/AboutPageService.cs` file.
+Great, now Strapi is configured, simply navigate to the appsettings.Development.json file, and update the "STRAPI_ENDPOINT" variable to your locally or remotely accessible version of Strapi CMS.
 
 Once you have done this, simple navigate to the root of the project and run `dotnet run` and the API should be running locally on `http://localhost:5000`
 	
