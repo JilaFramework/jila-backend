@@ -1,19 +1,19 @@
 ﻿<Properties StartupConfiguration="{6CAD2A31-7D12-4F65-AB8D-8CA45F579FDC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="jila-backend-dotnet/Controllers/AboutPageController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="jila-backend-dotnet/Services/EntriesService.cs">
     <Files>
-      <File FileName="jila-backend-dotnet/Controllers/AboutPageController.cs" Line="16" Column="10" />
-      <File FileName="jila-backend-dotnet/Controllers/EntriesController.cs" Line="1" Column="1" />
+      <File FileName="jila-backend-dotnet/Controllers/AboutPageController.cs" Line="17" Column="10" />
+      <File FileName="jila-backend-dotnet/Controllers/EntriesController.cs" />
+      <File FileName="jila-backend-dotnet/Services/AboutPageService.cs" Line="45" Column="1" />
+      <File FileName="jila-backend-dotnet/Services/EntriesService.cs" Line="49" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="jila-backend-dotnet" expanded="True">
             <Node name="jila-backend-dotnet" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="AboutPageController.cs" selected="True" />
+              <Node name="Services" expanded="True">
+                <Node name="EntriesService.cs" selected="True" />
               </Node>
-              <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
