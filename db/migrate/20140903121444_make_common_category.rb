@@ -1,4 +1,4 @@
-class MakeCommonCategory < ActiveRecord::Migration
+class MakeCommonCategory < ActiveRecord::Migration[4.2]
   def up
     ApiSweeper.disabled = true
 

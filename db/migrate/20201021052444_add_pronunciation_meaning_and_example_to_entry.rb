@@ -1,4 +1,4 @@
-class AddPronunciationMeaningAndExampleToEntry < ActiveRecord::Migration
+class AddPronunciationMeaningAndExampleToEntry < ActiveRecord::Migration[4.2]
   def change
     change_table :entries do |t|
       t.string :pronunciation
