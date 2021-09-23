@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-# ruby '2.1.10'
+ruby '2.7.3'
 
 gem 'rails'
 gem 'sass-rails'
@@ -14,7 +14,7 @@ gem 'jquery-ui-rails'
 gem "active_model_serializers"
 
 gem 'devise'
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin'
 
 gem 'paperclip'
 gem 'aws-sdk'

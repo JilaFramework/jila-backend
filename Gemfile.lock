@@ -1,17 +1,3 @@
-GIT
-  remote: https://github.com/gregbell/active_admin.git
-  revision: 7aace3a6d1812467a59b099dbcbbec0140cd3f5d
-  specs:
-    activeadmin (2.9.0)
-      arbre (~> 1.2, >= 1.2.1)
-      formtastic (>= 3.1, < 5.0)
-      formtastic_i18n (~> 0.4)
-      inherited_resources (~> 1.7)
-      jquery-rails (~> 4.2)
-      kaminari (~> 1.0, >= 1.2.1)
-      railties (>= 5.2, < 6.2)
-      ransack (~> 2.1, >= 2.1.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,6 +46,15 @@ GEM
       activemodel (>= 4.1, < 6.2)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    activeadmin (2.9.0)
+      arbre (~> 1.2, >= 1.2.1)
+      formtastic (>= 3.1, < 5.0)
+      formtastic_i18n (~> 0.4)
+      inherited_resources (~> 1.7)
+      jquery-rails (~> 4.2)
+      kaminari (~> 1.0, >= 1.2.1)
+      railties (>= 5.2, < 6.2)
+      ransack (~> 2.1, >= 2.1.1)
     activeadmin-sortable (0.0.3)
       activeadmin (>= 0.4)
     activejob (6.1.4.1)
@@ -89,7 +84,7 @@ GEM
       activesupport (>= 3.0.0, < 6.2)
       ruby2_keywords (>= 0.0.2, < 1.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.503.0)
+    aws-partitions (1.504.0)
     aws-sdk (3.1.0)
       aws-sdk-resources (~> 3)
     aws-sdk-accessanalyzer (1.23.0)
@@ -460,13 +455,13 @@ GEM
     aws-sdk-honeycode (1.9.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-iam (1.60.0)
+    aws-sdk-iam (1.61.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-identitystore (1.9.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-imagebuilder (1.29.0)
+    aws-sdk-imagebuilder (1.30.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-importexport (1.29.0)
@@ -568,13 +563,13 @@ GEM
     aws-sdk-lexmodelbuildingservice (1.51.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-lexmodelsv2 (1.10.0)
+    aws-sdk-lexmodelsv2 (1.11.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-lexruntimev2 (1.6.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-licensemanager (1.32.0)
+    aws-sdk-licensemanager (1.33.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-lightsail (1.56.0)
@@ -628,7 +623,7 @@ GEM
     aws-sdk-mediapackage (1.44.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-mediapackagevod (1.27.0)
+    aws-sdk-mediapackagevod (1.28.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-mediastore (1.35.0)
@@ -637,7 +632,7 @@ GEM
     aws-sdk-mediastoredata (1.32.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-mediatailor (1.44.0)
+    aws-sdk-mediatailor (1.45.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-memorydb (1.2.0)
@@ -1191,7 +1186,7 @@ GEM
     aws-sdk-wafregional (1.42.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-wafv2 (1.26.0)
+    aws-sdk-wafv2 (1.27.0)
       aws-sdk-core (~> 3, >= 3.120.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-wellarchitected (1.8.0)
@@ -1297,7 +1292,7 @@ GEM
     mini_mime (1.1.1)
     mini_portile2 (2.6.1)
     minitest (5.14.4)
-    newrelic_rpm (7.2.0)
+    newrelic_rpm (8.0.0)
     nio4r (2.5.8)
     nokogiri (1.12.4)
       mini_portile2 (~> 2.6.1)
@@ -1417,7 +1412,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   active_model_serializers
-  activeadmin!
+  activeadmin
   activeadmin-sortable
   acts_as_list
   aws-sdk
@@ -1440,6 +1435,9 @@ DEPENDENCIES
   sqlite3
   uglifier
   unicorn
+
+RUBY VERSION
+   ruby 2.7.3p183
 
 BUNDLED WITH
    2.1.4
