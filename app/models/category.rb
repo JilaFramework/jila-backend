@@ -34,4 +34,19 @@ class Category < ActiveRecord::Base
   def audio_game_suitable?
     entries.where('audio_file_name IS NOT NULL').count > 1
   end
+
+  def serialize
+    {
+      id: self.id, 
+      name: self.name, 
+      images: {
+        thumbnail: self.image? ? self.image(:thumbnail) : nil,
+        normal: self.image? ? self.image(:normal) : nil
+      }, 
+      games: {
+        image: self.image_game_suitable? && self.image_game_available?,
+        audio: self.audio_game_suitable? && self.audio_game_available?
+      }
+    }
+  end
 end

@@ -64,7 +64,7 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(Entry).to receive(:since).with(DateTime.parse('2010-06-01'))
                                         .and_return(Entry)
 
-        get :entries, last_sync: '2010-06-01'
+        get :entries, params: { last_sync: '2010-06-01' }
       end
     end
 	end
@@ -148,7 +148,7 @@ RSpec.describe Api::SyncController, :type => :controller do
       before { expect(Category).to receive(:since) }
 
       it 'should return all categories modified after the provided date' do
-        get :categories, last_sync: '2010-06-01'
+        get :categories, params: { last_sync: '2010-06-01' }
       end
     end
   end
