@@ -1,5 +1,6 @@
 ![brakeman analysis](https://github.com/JilaFramework/jila-backend/actions/workflows/brakeman-analysis.yml/badge.svg)
 ![tests](https://github.com/JilaFramework/jila-backend/actions/workflows/tests.yml/badge.svg)
+![lint](https://github.com/JilaFramework/jila-backend/actions/workflows/linter.yml/badge.svg)
 
 ## What is this?
 
