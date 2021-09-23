@@ -17,6 +17,6 @@ jobs:
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: '2.7'
+        ruby-version: '2.7.3'
     - name: Run tests
       run: bundle exec rake
