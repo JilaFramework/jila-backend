@@ -20,11 +20,11 @@ class Category < ActiveRecord::Base
   end
 
   def self.with_published_entries
-    joins(:entries).where(entries: {published?: true}).uniq
+    joins(:entries).where(entries: {published?: true}).distinct
   end
 
   def self.by_display_order
-    order('position ASC')
+    order(Arel.sql('position ASC'))
   end
 
   def image_game_suitable?
