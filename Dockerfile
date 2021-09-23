@@ -1,4 +1,4 @@
-FROM ruby:2.1.10
+FROM ruby:2.7.3
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
@@ -17,4 +17,7 @@ COPY . .
 ADD ./.profile.d /app/.profile.d
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-CMD rails s -p $PORT
+EXPOSE 3000
+
+# Configure the main process to run when running the image
+CMD ["rails", "server", "-b", "0.0.0.0"]
