@@ -1,3 +1,6 @@
+![brakeman analysis](https://github.com/JilaFramework/jila-backend/actions/workflows/brakeman-analysis.yml/badge.svg)
+![tests](https://github.com/JilaFramework/jila-backend/actions/workflows/tests.yml/badge.svg)
+
 ## What is this?
 
 [**Jila**](http://jilaframework.github.io) is a framework for building simple language learning apps. This particular repository is for the administrative backend and the API used to communicate with the app.
