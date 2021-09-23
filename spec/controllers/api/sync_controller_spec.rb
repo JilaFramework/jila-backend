@@ -39,6 +39,8 @@ RSpec.describe Api::SyncController, type: :controller do
 
     context 'with no date provided' do
       it 'returns all published entries in JSON' do
+        allow(Entry).to receive(:since)
+
         get :entries
 
         parsed_response = JSON.parse response.body
@@ -58,7 +60,7 @@ RSpec.describe Api::SyncController, type: :controller do
         expect(first_entry['images']['normal']).to eq('normal.png')
         expect(first_entry['categories']).to eq([37, 24])
 
-        expect(Entry).not_to have_receive(:since)
+        expect(Entry).not_to have_received(:since)
       end
     end
 
