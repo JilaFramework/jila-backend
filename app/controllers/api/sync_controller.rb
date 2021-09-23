@@ -4,17 +4,17 @@ class Api::SyncController < ApplicationController
   def categories
     last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
-    render json: categories_since(last_sync), root: 'categories', each_serializer: CategorySerializer
+    render json: { categories: categories_since(last_sync)  }
   end
 
 	def entries
     last_sync = DateTime.parse(params[:last_sync]) if params[:last_sync]
 
-	  render json: entries_since(last_sync), root: 'entries', each_serializer: EntrySerializer
+	  render json: { entries: entries_since(last_sync) }
 	end
 
   def image_credits
-    render json: ImageCredit.with_attribution, root: 'image_credits', each_serializer: ImageCreditSerializer
+    render json: { 'image_credits': image_credit_with_attribution() }
   end
 
   def all
@@ -23,15 +23,16 @@ class Api::SyncController < ApplicationController
     render json: {
       categories: categories_since(last_sync),
       entries: entries_since(last_sync),
-      image_credits: ImageCredit.with_attribution,
-    }, root: false, serializer: SyncSerializer
+      image_credits: image_credit_with_attribution(),
+    }
   end
 
   private
 
   def categories_since last_sync
     categories = Category.with_published_entries.by_display_order
-    last_sync ? categories.since(last_sync) : categories
+    result = last_sync ? categories.since(last_sync) : categories
+    (result  || []).map(&:serialize)
   end
 
   def entries_since last_sync
@@ -39,6 +40,15 @@ class Api::SyncController < ApplicationController
 
     entries = entries.since last_sync if last_sync
 
-    entries.by_display_order.alphabetically.published?
+    (entries.by_display_order.alphabetically.published? || []).map(&:serialize)
+  end
+
+  def image_credit_with_attribution 
+    (ImageCredit.with_attribution || []).map { |imageCredit| 
+      {
+        attribution_text: imageCredit.attribution_text,
+        link: imageCredit.link
+      }
+    }
   end
 end

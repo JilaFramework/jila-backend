@@ -41,7 +41,7 @@ class Entry < ActiveRecord::Base
   end
 
   def self.by_display_order
-    order('display_order IS NULL, display_order ASC')
+    order(Arel.sql('display_order IS NULL, display_order ASC'))
   end
 
   def self.alphabetically
@@ -64,5 +64,26 @@ class Entry < ActiveRecord::Base
   def alternate_translations_raw= values
     self.alternate_translations = []
     self.alternate_translations = values.split("\n")
+  end
+
+  def serialize 
+    {
+      id: self.id,
+      description: self.description,
+      entry_word: self.entry_word,
+      pronunciation: self.pronunciation,
+      word_type: self.word_type,
+      meaning: self.meaning,
+      example: self.example,
+      example_translation: self.example_translation,
+      alternate_translations: self.alternate_translations,
+      alternate_spellings: self.alternate_spellings,
+      audio: self.audio.exists? ? self.audio.url : nil,
+      images: {
+        thumbnail: self.image? ? self.image(:thumbnail) : nil,
+        normal: self.image? ? self.image(:normal) : nil
+      },
+      categories: self.categories.map(&:id),
+    }
   end
 end
