@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::SyncController, :type => :controller do
-	let(:category1) { Category.new id: 37, name: 'Family' }
+RSpec.describe Api::SyncController, type: :controller do
+  let(:category1) { Category.new id: 37, name: 'Family' }
   let(:category2) { Category.new id: 24, name: 'Body Parts' }
-  let(:entry) { Entry.new id: 3, entry_word: 'Mimi',
-                                 word_type: 'noun',
-                                 meaning: 'Grandma',
-                                 alternate_translations: ['Granny'],
-																 alternate_spellings: ['Mummy'],
-                                 description: 'Mum\'s mum',
-                                 categories: [category1, category2] }
+  let(:entry) do
+    Entry.new id: 3, entry_word: 'Mimi',
+              word_type: 'noun',
+              meaning: 'Grandma',
+              alternate_translations: ['Granny'],
+              alternate_spellings: ['Mummy'],
+              description: 'Mum\'s mum',
+              categories: [category1, category2]
+  end
 
   before(:all) do
     ApiSweeper.disabled = true
@@ -28,15 +32,13 @@ RSpec.describe Api::SyncController, :type => :controller do
 
   describe 'GET #entries' do
     before do
-      expect(Entry).to receive(:by_display_order).and_return(Entry)
-      expect(Entry).to receive(:alphabetically).and_return(Entry)
-      expect(Entry).to receive(:published?).and_return([entry])
+      allow(Entry).to receive(:by_display_order).and_return(Entry)
+      allow(Entry).to receive(:alphabetically).and_return(Entry)
+      allow(Entry).to receive(:published?).and_return([entry])
     end
 
-		context 'with no date provided' do
-      it 'should return all published entries in JSON' do
-        expect(Entry).to_not receive(:since)
-
+    context 'with no date provided' do
+      it 'returns all published entries in JSON' do
         get :entries
 
         parsed_response = JSON.parse response.body
@@ -49,44 +51,47 @@ RSpec.describe Api::SyncController, :type => :controller do
         expect(first_entry['word_type']).to eq('noun')
         expect(first_entry['meaning']).to eq('Grandma')
         expect(first_entry['alternate_translations']).to eq(['Granny'])
-				expect(first_entry['alternate_spellings']).to eq(['Mummy'])
+        expect(first_entry['alternate_spellings']).to eq(['Mummy'])
         expect(first_entry['description']).to eq('Mum\'s mum')
         expect(first_entry['audio']).to eq('s3.m4a')
         expect(first_entry['images']['thumbnail']).to eq('thumb.png')
         expect(first_entry['images']['normal']).to eq('normal.png')
-        expect(first_entry['categories']).to eq([37,24])
+        expect(first_entry['categories']).to eq([37, 24])
 
+        expect(Entry).not_to have_receive(:since)
       end
     end
 
     context 'with a date provided' do
-      it 'should return all published entries modified after the provided date' do
-        expect(Entry).to receive(:since).with(DateTime.parse('2010-06-01'))
-                                        .and_return(Entry)
+      it 'returns all published entries modified after the provided date' do
+        allow(Entry).to receive(:since).with(DateTime.parse('2010-06-01'))
+                                       .and_return(Entry)
 
         get :entries, params: { last_sync: '2010-06-01' }
+
+        expect(Entry).to have_received(:since).with(DateTime.parse('2010-06-01'))
       end
     end
-	end
+  end
 
   describe 'GET #categories' do
     context 'with no date provided' do
-      before { expect(Category).to receive(:with_published_entries).and_return(Category) }
-      before { expect(Category).to receive(:by_display_order).and_return([category1, category2]) }
-
       let(:image_available) { true }
       let(:image_suitable) { true }
       let(:audio_available) { true }
       let(:audio_suitable) { true }
 
       before do
+        allow(Category).to receive(:with_published_entries).and_return(Category)
+        allow(Category).to receive(:by_display_order).and_return([category1, category2])
+
         allow(category1).to receive(:image_game_suitable?).and_return(image_suitable)
         allow(category1).to receive(:image_game_available?).and_return(image_available)
         allow(category1).to receive(:audio_game_suitable?).and_return(audio_suitable)
         allow(category1).to receive(:audio_game_available?).and_return(audio_available)
       end
 
-      it 'should return all categories with published entries' do
+      it 'returns all categories with published entries' do
         get :categories
 
         parsed_response = JSON.parse response.body
@@ -101,7 +106,7 @@ RSpec.describe Api::SyncController, :type => :controller do
       end
 
       context 'when category is both available and suitable for image/audio games' do
-        it 'should allow games' do
+        it 'allows games' do
           get :categories
 
           parsed_response = JSON.parse response.body
@@ -116,7 +121,7 @@ RSpec.describe Api::SyncController, :type => :controller do
         let(:image_suitable) { false }
         let(:audio_suitable) { false }
 
-        it 'should not allow games' do
+        it 'does not allow games' do
           get :categories
 
           parsed_response = JSON.parse response.body
@@ -131,7 +136,7 @@ RSpec.describe Api::SyncController, :type => :controller do
         let(:image_available) { false }
         let(:audio_available) { false }
 
-        it 'should not allow games' do
+        it 'does not allow games' do
           get :categories
 
           parsed_response = JSON.parse response.body
@@ -144,23 +149,32 @@ RSpec.describe Api::SyncController, :type => :controller do
     end
 
     context 'with a date provided' do
-      before { expect(Category).to receive(:with_published_entries).and_return(Category) }
-      before { expect(Category).to receive(:since) }
+      before do
+        allow(Category).to receive(:with_published_entries).and_return(Category)
+        allow(Category).to receive(:since)
+      end
 
-      it 'should return all categories modified after the provided date' do
+      it 'returns all categories modified after the provided date' do
         get :categories, params: { last_sync: '2010-06-01' }
+
+        expect(Category).to have_received(:with_published_entries)
+        expect(Category).to have_received(:since)
       end
     end
   end
 
   describe 'GET #image_credits' do
-    let(:credit1) { ImageCredit.new attribution_text: 'Saltwater Croc - PhotoGuy89 - CC SA-2.5', link: 'http://linktoapicture.com/1.png'}
-    let(:credit2) { ImageCredit.new attribution_text: 'Red Flying Fox - PhotoGal90 - CC SA-3.0', link: 'http://linktoapicture.com/2.png'}
+    let(:credit1) do
+      ImageCredit.new attribution_text: 'Saltwater Croc - PhotoGuy89 - CC SA-2.5', link: 'http://linktoapicture.com/1.png'
+    end
+    let(:credit2) do
+      ImageCredit.new attribution_text: 'Red Flying Fox - PhotoGal90 - CC SA-3.0', link: 'http://linktoapicture.com/2.png'
+    end
     let(:credits) { [credit1, credit2] }
 
-    before { expect(ImageCredit).to receive(:with_attribution).and_return(credits) }
+    before { allow(ImageCredit).to receive(:with_attribution).and_return(credits) }
 
-    it 'should provide a list of all image credits' do
+    it 'provides a list of all image credits' do
       get :image_credits
 
       parsed_response = JSON.parse response.body
@@ -175,7 +189,7 @@ RSpec.describe Api::SyncController, :type => :controller do
   end
 
   describe 'GET #all' do
-    it 'should aggregate all the syncable fields' do
+    it 'aggregates all the syncable fields' do
       get :all
 
       parsed_response = JSON.parse response.body

@@ -1,5 +1,6 @@
-ActiveAdmin.register Entry do
+# frozen_string_literal: true
 
+ActiveAdmin.register Entry do
   controller do
     cache_sweeper :api_sweeper
 
@@ -19,7 +20,7 @@ ActiveAdmin.register Entry do
   actions :all, except: [:show]
 
   permit_params :entry_word, :word_type, :pronunciation, :meaning, :example, :example_translation, :alternate_translations_raw, :alternate_spellings_raw, :display_order, :description,
-                :published?, :image, :audio, image_credit_attributes: [:attribution_text, :link], category_ids: []
+                :published?, :image, :audio, image_credit_attributes: %i[attribution_text link], category_ids: []
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
@@ -27,8 +28,10 @@ ActiveAdmin.register Entry do
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
       f.input :pronunciation
       f.input :meaning
-      f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line', placeholder: 'One per line', input_html: {rows: 3}
-      f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line', placeholder: 'One per line', input_html: {rows: 3}
+      f.input :alternate_translations_raw, as: :text, label: 'Alternate translations - One per line',
+                                           placeholder: 'One per line', input_html: { rows: 3 }
+      f.input :alternate_spellings_raw, as: :text, label: 'Alternate spellings - One per line',
+                                        placeholder: 'One per line', input_html: { rows: 3 }
       f.input :description
       f.input :example
       f.input :example_translation
@@ -57,12 +60,12 @@ ActiveAdmin.register Entry do
 
   batch_action :publish do |selection|
     Entry.find(selection).each { |e| e.update_attribute(:published?, true) }
-    redirect_to collection_path, :notice => "Entries published"
+    redirect_to collection_path, notice: 'Entries published'
   end
 
   batch_action :un_publish do |selection|
     Entry.find(selection).each { |e| e.update_attribute(:published?, false) }
-    redirect_to collection_path, :notice => "Entries un-published"
+    redirect_to collection_path, notice: 'Entries un-published'
   end
 
   index do

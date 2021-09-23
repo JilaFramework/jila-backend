@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -38,8 +40,8 @@ Rails.application.configure do
   backend_url = 'http:/localhost:3000'
 
   config.paperclip_defaults = {
-    :storage => :filesystem,
-    :url => "#{backend_url}/system/:class/:attachment/:id_partition/:style/:class_:id.:extension",
-    :default_url => "#{backend_url}/images/:style/missing.png"
+    storage: :filesystem,
+    url: "#{backend_url}/system/:class/:attachment/:id_partition/:style/:class_:id.:extension",
+    default_url: "#{backend_url}/images/:style/missing.png"
   }
 end

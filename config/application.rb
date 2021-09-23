@@ -1,4 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('boot', __dir__)
 
 require 'rails/all'
 require 'rack/cors'
@@ -24,7 +26,7 @@ module LanguageBackend
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*', :headers => :any, :methods => [:get]
+        resource '/api/*', headers: :any, methods: [:get]
       end
     end
   end

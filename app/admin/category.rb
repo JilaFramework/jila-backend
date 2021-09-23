@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Category do
   controller do
     cache_sweeper :api_sweeper
@@ -21,7 +23,8 @@ ActiveAdmin.register Category do
 
   actions :all, except: [:show]
 
-  permit_params :name, :image, :image_game_available?, :audio_game_available?, image_credit_attributes: [:attribution_text, :link]
+  permit_params :name, :image, :image_game_available?, :audio_game_available?,
+                image_credit_attributes: %i[attribution_text link]
 
   form(html: { multipart: true }) do |f|
     f.inputs 'Details' do
@@ -37,16 +40,16 @@ ActiveAdmin.register Category do
     end
 
     f.inputs 'Game Settings' do
-      f.input :image_game_available?, 
-              label: 'Available for picture games?', 
+      f.input :image_game_available?,
+              label: 'Available for picture games?',
               hint: picture_hint(f.object),
-              input_html: {disabled: !f.object.image_game_suitable?}
-      f.input :audio_game_available?, 
-              label: 'Available for audio games?', 
+              input_html: { disabled: !f.object.image_game_suitable? }
+      f.input :audio_game_available?,
+              label: 'Available for audio games?',
               hint: audio_hint(f.object),
-              input_html: {disabled: !f.object.audio_game_suitable?}
+              input_html: { disabled: !f.object.audio_game_suitable? }
     end
-    
+
     f.actions
   end
 
@@ -60,6 +63,6 @@ ActiveAdmin.register Category do
     end
     actions
   end
-  
+
   filter :name
 end

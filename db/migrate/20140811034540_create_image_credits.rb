@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateImageCredits < ActiveRecord::Migration[4.2]
   def change
     create_table :image_credits do |t|
