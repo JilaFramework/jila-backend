@@ -1,22 +1,22 @@
+# frozen_string_literal: true
+
 class MakeCommonCategory < ActiveRecord::Migration[4.2]
   def up
     ApiSweeper.disabled = true
 
-    if Category.count > 0
-      puts "Existing category found with ID #1"
-      first_category = Category.find_by_id 1
+    if Category.count.positive?
+      Rails.logger.debug 'Existing category found with ID #1'
+      first_category = Category.find_by id: 1
       last_category = Category.last
 
       first_category.id = last_category.id + 1
       first_category.save
     end
 
-    new_category = Category.create id: 1, name: 'Common Phrases'
+    Category.create id: 1, name: 'Common Phrases'
 
     ApiSweeper.disabled = false
   end
 
-  def down
-
-  end
+  def down; end
 end

@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  root :to => redirect("/admin", status: 302)
+  root to: redirect('/admin', status: 302)
 
   namespace :api, defaults: { format: 'json' } do
-    get 'sync/categories' => 'sync#categories'  
-    get 'sync/entries' => 'sync#entries'  
+    get 'sync/categories' => 'sync#categories'
+    get 'sync/entries' => 'sync#entries'
     get 'sync/image_credits' => 'sync#image_credits'
-    get 'sync/all' => 'sync#all'  
+    get 'sync/all' => 'sync#all'
     get 'heartbeat' => 'heartbeat#heartbeat'
   end
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,47 +1,53 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby '2.7.3'
 
+gem 'coffee-rails'
 gem 'rails'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'coffee-rails'
 
 gem 'rack-cors'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem "active_model_serializers"
+gem 'active_model_serializers'
 
-gem 'devise'
 gem 'activeadmin'
+gem 'devise'
 
-gem 'paperclip'
 gem 'aws-sdk'
+gem 'paperclip'
 
 gem 'unicorn'
 
-gem 'acts_as_list'
 gem 'activeadmin-sortable'
+gem 'acts_as_list'
 
 gem 'actionpack-action_caching'
-gem 'rails-observers'
-gem 'memcachier'
 gem 'dalli'
+gem 'memcachier'
+gem 'rails-observers'
 
 gem 'newrelic_rpm'
 
 gem 'rspec-rails'
 
+gem 'rubocop'
+gem 'rubocop-rails'
+gem 'rubocop-rspec'
+
 group :development do
-  gem 'spring'	
+  gem 'spring'
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'pry'
+  gem 'sqlite3'
 end
 
 group :production do
   gem 'pg'
-end		
+end

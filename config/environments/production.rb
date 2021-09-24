@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -80,16 +82,16 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # The Environment Var are specific to heroku bucketeer add on you can alter them 
+  # The Environment Var are specific to heroku bucketeer add on you can alter them
   # to point to other AWS credentials as you wish
   # Note: https is enforced on most mobile apps
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_protocol => :https,
-    :s3_credentials => {
-      :bucket => ENV['BUCKETEER_BUCKET_NAME'],
-      :access_key_id => ENV['BUCKETEER_AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['BUCKETEER_AWS_SECRET_ACCESS_KEY']
+    storage: :s3,
+    s3_protocol: :https,
+    s3_credentials: {
+      bucket: ENV['BUCKETEER_BUCKET_NAME'],
+      access_key_id: ENV['BUCKETEER_AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['BUCKETEER_AWS_SECRET_ACCESS_KEY']
     }
   }
 end

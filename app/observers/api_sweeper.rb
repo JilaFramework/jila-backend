@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 class ApiSweeper < ActionController::Caching::Sweeper
   observe Category, Entry
 
   @@disabled = false
 
-  def self.disabled= new_state
+  def self.disabled=(new_state)
     # puts "Setting API sweeper state to disabled: #{new_state}"
     @@disabled = new_state
   end
 
-  def after_save record
+  def after_save(_record)
     expire_cache
   end
 
-  def after_destroy record
+  def after_destroy(_record)
     expire_cache
   end
 
@@ -21,11 +23,11 @@ class ApiSweeper < ActionController::Caching::Sweeper
   def expire_cache
     unless @@disabled
       fragment_path = ActionController::Caching::Actions::ActionCachePath.new(self, {
-          controller: '/api/sync',
-          action: 'all',
-          format: 'json'
-      }, false).path
+                                                                                controller: '/api/sync',
+                                                                                action: 'all',
+                                                                                format: 'json'
+                                                                              }, false).path
       expire_fragment("#{fragment_path}.json")
     end
   end
-end 
+end
