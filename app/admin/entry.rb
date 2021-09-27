@@ -90,6 +90,7 @@ ActiveAdmin.register Entry do
       entry.categories.map do |c|
         span c.name, class: 'category'
       end
+      nil
     end
     actions
   end
