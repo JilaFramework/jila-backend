@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Entry do
+  action_item only: :index do
+    link_to 'Upload CSV', action: 'upload_csv'
+  end
+
+  collection_action :upload_csv do
+    render 'admin/csv/upload_csv'
+  end
+
+  collection_action :import_csv, method: :post do
+    EntriesCSVImporter.convert_save(params[:dump][:file])
+    redirect_to action: :index, notice: 'CSV imported successfully!'
+  end
+
   controller do
     cache_sweeper :api_sweeper
 
