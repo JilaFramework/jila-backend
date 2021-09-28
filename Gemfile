@@ -38,6 +38,7 @@ gem 'rspec-rails'
 gem 'rubocop'
 gem 'rubocop-rails'
 gem 'rubocop-rspec'
+gem 'rswag'
 
 group :development do
   gem 'spring'

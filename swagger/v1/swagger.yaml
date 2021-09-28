@@ -1,0 +1,134 @@
+---
+openapi: 3.0.1
+info:
+  title: JILA API V1
+  version: v1
+paths:
+  "/api/sync/categories":
+    get:
+      summary: categories sync
+      tags:
+      - Categories
+      parameters:
+      - name: last_sync
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                categories:
+                - id: 1
+                  name: common phrases
+                  images:
+                    thumbnail: 
+                    normal: 
+                  games:
+                    image: false
+                    audio: false
+  "/api/sync/entries":
+    get:
+      summary: entries sync
+      tags:
+      - Entries
+      parameters:
+      - name: last_sync
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                entries:
+                - id: 1
+                  description: description
+                  entry_word: Jalangardi
+                  pronunciation: 
+                  word_type: noun
+                  meaning: Goanna
+                  example: 
+                  example_translation: 
+                  alternate_translations:
+                  - Sand Monitor
+                  alternate_spellings:
+                  - alternate spelling 1
+                  audio: 
+                  images:
+                    thumbnail: 
+                    normal: 
+                  categories:
+                  - 1
+  "/api/sync/image_credits":
+    get:
+      summary: image_credits sync
+      tags:
+      - Image Credits
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                image_credits:
+                - attribution_text: Saltwater Crocodile - MR Jordan Woodside - CC
+                    BY-SA 3.0
+                  link: http://link.to.image.png
+  "/api/sync/all":
+    get:
+      summary: all sync
+      tags:
+      - All
+      parameters:
+      - name: last_sync
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                categories:
+                - id: 1
+                  name: common phrases
+                  images:
+                    thumbnail: 
+                    normal: 
+                  games:
+                    image: false
+                    audio: false
+                entries:
+                - id: 1
+                  description: description
+                  entry_word: Jalangardi
+                  pronunciation: 
+                  word_type: noun
+                  meaning: Goanna
+                  example: 
+                  example_translation: 
+                  alternate_translations:
+                  - Sand Monitor
+                  alternate_spellings:
+                  - alternate spelling 1
+                  audio: 
+                  images:
+                    thumbnail: 
+                    normal: 
+                  categories:
+                  - 1
+                image_credits:
+                - attribution_text: Saltwater Crocodile - MR Jordan Woodside - CC
+                    BY-SA 3.0
+                  link: http://link.to.image.png
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: jila.herokuapp.com

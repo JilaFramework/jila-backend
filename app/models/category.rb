@@ -18,7 +18,7 @@ class Category < ApplicationRecord
   validates_attachment_content_type :image, content_type: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
 
   def self.since(updated_since)
-    where('updated_at >= ?', updated_since)
+    where("categories.updated_at >= ?", updated_since)
   end
 
   def self.with_published_entries
