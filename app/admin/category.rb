@@ -23,7 +23,7 @@ ActiveAdmin.register Category do
                 image_credit_attributes: %i[attribution_text link]
 
   form(html: { multipart: true }) do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     f.inputs 'Details' do
       f.input :name
     end

@@ -22,7 +22,7 @@ ActiveAdmin.register Entry do
     end
 
     def update
-      update! 
+      update!
     end
   end
 
@@ -32,7 +32,7 @@ ActiveAdmin.register Entry do
                 :published?, :image, :audio, image_credit_attributes: %i[attribution_text link], category_ids: []
 
   form(html: { multipart: true }) do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     f.inputs 'Details' do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES
