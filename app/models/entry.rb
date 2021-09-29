@@ -11,21 +11,21 @@ class Entry < ApplicationRecord
   has_and_belongs_to_many :categories
   accepts_nested_attributes_for :categories, allow_destroy: false
 
-  WORD_TYPES = %w[
-    noun
-    verb
-    pronoun
-    adjective
-    adverb
-    preposition
-    conjunction
-    interjection
-    phrase
-    suffix
-    particle
-    proper\ noun
-    question
-    determiner
+  WORD_TYPES = [
+    'noun',
+    'verb',
+    'pronoun',
+    'adjective',
+    'adverb',
+    'preposition',
+    'conjunction',
+    'interjection',
+    'phrase',
+    'suffix',
+    'particle',
+    'proper noun',
+    'question',
+    'determiner'
   ].freeze
 
   has_attached_file :image, styles: {
