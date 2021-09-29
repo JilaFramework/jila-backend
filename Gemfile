@@ -35,6 +35,7 @@ gem 'newrelic_rpm'
 
 gem 'rspec-rails'
 
+gem 'rswag'
 gem 'rubocop'
 gem 'rubocop-rails'
 gem 'rubocop-rspec'
