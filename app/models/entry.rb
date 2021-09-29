@@ -21,6 +21,11 @@ class Entry < ApplicationRecord
     conjunction
     interjection
     phrase
+    suffix
+    particle
+    proper\ noun
+    question
+    determiner
   ].freeze
 
   has_attached_file :image, styles: {
