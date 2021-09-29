@@ -18,15 +18,11 @@ ActiveAdmin.register Entry do
     cache_sweeper :api_sweeper
 
     def create
-      create! do |format|
-        format.html { redirect_to edit_admin_entry_path(Entry.last) }
-      end
+      create!
     end
 
     def update
-      update! do |format|
-        format.html { redirect_to edit_admin_entry_path }
-      end
+      update! 
     end
   end
 
@@ -36,6 +32,7 @@ ActiveAdmin.register Entry do
                 :published?, :image, :audio, image_credit_attributes: %i[attribution_text link], category_ids: []
 
   form(html: { multipart: true }) do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs 'Details' do
       f.input :entry_word
       f.input :word_type, as: :select, collection: Entry::WORD_TYPES

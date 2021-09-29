@@ -5,15 +5,11 @@ ActiveAdmin.register Category do
     cache_sweeper :api_sweeper
 
     def create
-      create! do |format|
-        format.html { redirect_to edit_admin_category_path(Category.last) }
-      end
+      create!
     end
 
     def update
-      update! do |format|
-        format.html { redirect_to edit_admin_category_path }
-      end
+      update!
     end
   end
 
@@ -27,6 +23,7 @@ ActiveAdmin.register Category do
                 image_credit_attributes: %i[attribution_text link]
 
   form(html: { multipart: true }) do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs 'Details' do
       f.input :name
     end
