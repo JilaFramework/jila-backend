@@ -49,6 +49,6 @@ class Category < ApplicationRecord
         image: image_game_suitable? && image_game_available?,
         audio: audio_game_suitable? && audio_game_available?
       }
-    }.compact
+    }.compact_blank
   end
 end
