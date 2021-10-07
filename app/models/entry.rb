@@ -91,6 +91,6 @@ class Entry < ApplicationRecord
         normal: image? ? image(:normal) : nil
       },
       categories: categories.map(&:id)
-    }
+    }.compact
   end
 end
