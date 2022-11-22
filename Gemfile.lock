@@ -1231,7 +1231,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    dalli (2.7.11)
+    dalli (3.2.3)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
